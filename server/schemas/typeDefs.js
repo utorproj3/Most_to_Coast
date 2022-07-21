@@ -5,7 +5,6 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
-        reviews: [Review]
         iconUrl: String
         description: String
         placesTraveled: [Location]
@@ -26,11 +25,25 @@ const typeDefs = gql`
         city: String
         descriptionText: String
         days: Number
-        startTime: String
-        endTime: String
+        startDay: String
+        endDay: String
     }
 
+    type Activities {
+        _id: ID
+        name: String
+        destination: String
+        startTime: String
+        endTime: String
+        description: String
+    }
 
+    type TravelPlans {
+        _id: ID
+        basicInfo: [BasicPlanInfo]
+        activity: [Activity]
+        routes: [Location]
+    }
 `;
 
 module.exports = typeDefs;

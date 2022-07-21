@@ -33,12 +33,12 @@ const BasicPlanInfoSchema = new Schema(
       required: 'You need to provide the number of days'
     },
 
-    startTime: {
+    startDay: {
       type: String,
       required: 'You need to provide the start time of the day'
     },
 
-    endTime: {
+    endDay: {
       type: String,
       required: 'You need to provide the end time of the day'
     }
