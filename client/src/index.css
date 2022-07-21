@@ -1,1 +1,19 @@
+main {
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 50px 30px;
+}
 
+:root {
+--primary: blue;
+--secondary: orange;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    background: black;
+    color: white;
+    font-family: 'Arial';
+}
