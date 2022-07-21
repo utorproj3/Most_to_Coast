@@ -1,23 +1,25 @@
 const { Schema, model } = require('mongoose');
 
-const Activity = require('./Activity');
-
 // Used when publish or save the created plan
 const travelPlanSchema = new Schema (
     {
         basicInfo: {
             type: Schema.Types.ObjectId,
-            ref: 'BasicPlanInfo',
-            required: true
+            ref: 'BasicPlanInfo'
         },
-        activities: {
-            type: [Activity.schema],
-            required: true
-        },
-        routes: {
-            type: travelRoutesSchema
-        }
-    },
+        activity: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Activity'
+            }
+        ],
+        routes: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Location'
+            }
+        ]
+    }
 );
 
 const TravelPlan = model('TravelPlan', travelPlanSchema);

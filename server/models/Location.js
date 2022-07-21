@@ -8,28 +8,27 @@ const locationSchema = new Schema(
       unique: true,
       trim: true
     },
-    state: [
-    {
-        type: String,
-        required: true,
-        trim: true
+    state: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    city: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    picture: {
+      type: String,
+      match: [/[https?:\/\/www\.?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b[-a-zA-Z0-9@:%_\+.~#?&/\/=]*/, 'Must match a url address.']
     }
-    ],
-    city: [
-    {
-        type: String,
-        required: true,
-        trim: true
-    }
-  ]
-},
+  },
   {
     toJSON: {
       virtuals: true
     }
   }
 );
-
 
 const Location = model('Location', locationSchema);
 

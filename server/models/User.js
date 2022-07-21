@@ -36,12 +36,12 @@ const userSchema = new Schema(
       }
     ],
     myPlans: [
-    {
+      {
         type: Schema.Types.ObjectId,
         ref: 'TravelPlan'
-    }
-  ]
-},
+      }
+    ]
+  },
   {
     toJSON: {
       virtuals: true
