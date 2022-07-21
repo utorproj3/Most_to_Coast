@@ -15,7 +15,7 @@ const travelPlanSchema = new Schema (
             required: true
         },
         routes: {
-            type: [travelRoutesSchema]
+            type: travelRoutesSchema
         }
     },
 );
