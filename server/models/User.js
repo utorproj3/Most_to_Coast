@@ -19,8 +19,29 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minlength: 5
+    },
+    iconUrl: {
+      type: String,
+      required: false,
+      default: 'https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png'
+    },
+    description: {
+      type: String,
+      required: false
+    },
+    placesTraveled: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Location'
+      }
+    ],
+    myPlans: [
+    {
+        type: Schema.Types.ObjectId,
+        ref: 'TravelPlan'
     }
-  },
+  ]
+},
   {
     toJSON: {
       virtuals: true
