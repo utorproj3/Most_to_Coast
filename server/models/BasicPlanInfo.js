@@ -2,31 +2,29 @@ const { Schema, model } = require('mongoose');
 
 const BasicPlanInfoSchema = new Schema(
   {
-    user: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true
+    username: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User'
+        }
+    ],
+
+    planTitle: 
+    {
+        type: [String],
+        required: true,
+        trim: true
     },
 
-    planTitle: [
+    city: 
     {
-        type: String,
+        type: [String],
         required: true,
         trim: true
-    }
-    ],
-
-    city: [
-    {
-        type: String,
-        required: true,
-        trim: true
-    }
-    ],
+    },
 
     descriptionText:{
-        type: String,
+        type: [String],
         required: 'You need to provide your reaction text.',
         minLength: 1,
         maxLength: 280
