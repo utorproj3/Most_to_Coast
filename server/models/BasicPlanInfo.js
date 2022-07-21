@@ -2,12 +2,12 @@ const { Schema, model } = require('mongoose');
 
 const BasicPlanInfoSchema = new Schema(
   {
-    user: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true
-    },
+    username: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User'
+        }
+    ],
 
     planTitle: {
       type: [String],

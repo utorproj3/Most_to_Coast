@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const locationSchema = new Schema(
   {
     country: {
-      type: String,
+      type: [String],
       required: true,
       unique: true,
       trim: true
