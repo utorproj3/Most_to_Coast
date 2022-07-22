@@ -8,6 +8,9 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+import Header from './components/Header';
+import Footer from './components/Footer';
+
 import LoginSignUp from './pages/LoginSignUp/LoginSignUp';
 import Main from './pages/Main/Main';
 import Account from './pages/Account/Account';
@@ -38,6 +41,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
+        <Header />
         <Routes>
           <Route
             path="/"
@@ -64,6 +68,7 @@ function App() {
             element={<View />}
           />
         </Routes>
+        <Footer />
       </Router>
     </ApolloProvider>
   );
