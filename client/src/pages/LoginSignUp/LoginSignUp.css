@@ -1,0 +1,47 @@
+body {
+    background-color: #90d8f4;
+}
+
+.full-form {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* .tab-group {
+    
+}
+
+.tab-active {
+
+}
+
+.tab {
+
+} */
+
+.tab-content {
+    width: 500px;
+    height: 800px;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    border: 3px solid white;
+    padding: 10px;
+}
+
+.top-row {}
+
+.field-wrap {
+    padding: 10px;
+}
+
+.label {}
+
+.req {
+    padding: 0px 5px 0px 0px;
+}
