@@ -1,51 +1,93 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type User {
-    _id: ID
-    username: String
-    email: String
-    friendCount: Int
-    thoughts: [Thought]
-    friends: [User]
-  }
+    type User {
+        _id: ID
+        username: String
+        email: String
+        iconUrl: String
+        description: String
+        myPlans: [Plan]
+    }
 
-  type Thought {
-    _id: ID
-    thoughtText: String
-    createdAt: String
-    username: String
-    reactionCount: Int
-    reactions: [Reaction]
-  }
+    type Plan {
+        _id: ID!
+        username: String!
+        planTitle: String!
+        destination: [String!]
+        descriptionText: String!
+        days: [Day!]
+        startDate: String!
+        endDate: String!
+    }
 
-  type Reaction {
-    _id: ID
-    reactionBody: String
-    createdAt: String
-    username: String
-  }
+    input PlanInput {
+        _id: ID!
+        username: String!
+        planTitle: String!
+        destination: [String!]
+        descriptionText: String!
+        days: [DayInput!]
+        startDate: String!
+        endDate: String!
+    }
 
-  type Auth {
-    token: ID!
-    user: User
-  }
+    type Day {
+        _id: ID
+        day: Int
+        activities: [Activity]
+    }
 
-  type Query {
-    me: User
-    users: [User]
-    user(username: String!): User
-    thoughts(username: String): [Thought]
-    thought(_id: ID!): Thought
-  }
+    input DayInput {
+        _id: ID
+        day: Int
+        activities: [ActivityInput]
+    }
 
-  type Mutation {
-    login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-    addThought(thoughtText: String!): Thought
-    addReaction(thoughtId: ID!, reactionBody: String!): Thought
-    addFriend(friendId: ID!): User
-  }
+    type Activity {
+        _id: ID!
+        name: String!
+        place: String!
+        startTime: String!
+        endTime: String!
+        description: String
+        picture: String
+    }
+
+    input ActivityInput {
+        _id: ID!
+        name: String!
+        place: String!
+        startTime: String!
+        endTime: String!
+        description: String
+        picture: String
+    }
+
+    type Query {
+        me: User
+        allUsers: [User]
+        allTravelPlans: [Plan]
+        searchPlansByUser: [Plan]
+        singlePlan: Plan
+    }
+
+    type Mutation {
+        login(email: String!, password: String!): Auth
+        createUser(username: String!, email: String!, password: String): Auth
+        createPlan(input: PlanInput): Plan
+        createActivity(input: ActivityInput): Activity
+        createDay():Day
+        editPlan(input: PlanInput): Plan
+        editActivity(input: ActivityInput): Activity
+        removePlan(_id: ID!): User
+        removeActivity(_id: ID!): Plan
+    }
+
+    type Auth {
+        token: ID!
+        user: User
+    }
 `;
 
 module.exports = typeDefs;
