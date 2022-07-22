@@ -5,8 +5,9 @@ main {
 }
 
 :root {
---primary: blue;
---secondary: orange;
+--primary: #90d8f4;
+--secondary: #3dc4f2;
+--tertiary: white;
 }
 
 body {
