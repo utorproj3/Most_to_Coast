@@ -72,14 +72,19 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // createTravelPlan: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $push: }
-    //     )
-    //   }
-    // }
+    editActivity: async (parent, { planId, dayId, input }, context) => {
+      if (context.user) {
+        const activity = await Activity.findOneAndUpdate(
+          { _id: input._id }, args, { new: true }
+        );
+
+        await Day.findOneAndUpdate(
+          { _id: dayId }, { activities: activity }, { new: true }
+        );
+
+        return activity;
+      }
+    },
   }
 };
 
