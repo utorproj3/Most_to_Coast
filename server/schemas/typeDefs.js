@@ -1,48 +1,59 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    type User {
+    type User{
         _id: ID
         username: String
         email: String
         iconUrl: String
         description: String
-        placesTraveled: [Location]
-        myPlans: [TravelPlan]
+        myPlans: [Plan]
     }
 
-    type Location {
-        _id: ID
-        country: [String]
-        state: [String]
-        city: [string]
-    }
-
-    type BasicPlanInfo {
+    type Plan{
         _id: ID
         username: String
         planTitle: String
-        city: String
+        destination: [String]
         descriptionText: String
-        days: Number
-        startDay: String
-        endDay: String
+        days: [Day]
+        startDate: Date
+        endDate: Date
     }
 
-    type Activities {
+    type Day{
+        _id: ID
+        day: Number
+        activities: [Activity]
+    }
+
+    type Activity{
         _id: ID
         name: String
-        destination: String
+        place: String
         startTime: String
         endTime: String
         description: String
+        picture: String
     }
 
-    type TravelPlans {
-        _id: ID
-        basicInfo: [BasicPlanInfo]
-        activity: [Activity]
-        routes: [Location]
+    type Query {
+        me: User
+        allUsers: [User]
+        myTravelPlan: Plan
+        allTravelPlans: [Plan]
+    }
+
+    type Mutation {
+        login(email: String!, password: String!): Auth
+        createUser(username: String!, email: String!, password: String): Auth
+        createTravelPlan(planTitle: String!, destination: [String!], descriptionText: String!, days: Number!, startDate: Date!, endDate: Date!): Plan
+        createActivities(name: String!, place: String!,startTime: String!, endTime: String!,description: String!,picture: String!): Activity
+    }
+
+    type Auth{
+        token: ID!
+        user: User
     }
 `;
 

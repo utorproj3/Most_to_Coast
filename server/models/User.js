@@ -29,16 +29,10 @@ const userSchema = new Schema(
       type: String,
       required: false
     },
-    placesTraveled: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Location'
-      }
-    ],
     myPlans: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'TravelPlan'
+        ref: 'Plan'
       }
     ]
   },

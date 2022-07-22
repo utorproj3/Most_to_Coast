@@ -7,7 +7,7 @@ const activitySchema = new Schema (
             type: String,
             required: true,
         },
-        destination: {
+        place: {
             type: String,
             required: true
         },
