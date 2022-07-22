@@ -40,7 +40,6 @@ const typeDefs = gql`
     type Query {
         me: User
         allUsers: [User]
-        myTravelPlan: Plan
         allTravelPlans: [Plan]
     }
 
