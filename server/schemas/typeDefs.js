@@ -40,8 +40,9 @@ const typeDefs = gql`
     type Query {
         me: User
         allUsers: [User]
-        myTravelPlan: Plan
         allTravelPlans: [Plan]
+        searchPlansByUser: [Plan]
+        singlePlan: Plan
     }
 
     type Mutation {
@@ -49,6 +50,10 @@ const typeDefs = gql`
         createUser(username: String!, email: String!, password: String): Auth
         createTravelPlan(planTitle: String!, destination: [String!], descriptionText: String!, days: Number!, startDate: Date!, endDate: Date!): Plan
         createActivities(name: String!, place: String!,startTime: String!, endTime: String!,description: String!,picture: String!): Activity
+        editTravelPlan()
+        editActivity()
+        removeTravelPlan()
+        removeActivity()
     }
 
     type Auth{
