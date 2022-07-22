@@ -3,12 +3,10 @@ const { Schema, model } = require('mongoose');
 const PlanSchema = new Schema(
   {
     //Because it will only create for the logged in user, we probably dont need this code
-    // username: [
-    //     {
-    //       type: Schema.Types.ObjectId,
-    //       ref: 'User'
-    //     }
-    // ],
+    username: {
+          type: Schema.Types.ObjectId,
+          ref: 'User'
+    },
 
     planTitle: {
       type: String,

@@ -49,7 +49,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String): Auth
         createPlan(input: Plan): Plan
-        createActivities(input: Activity): Activity
+        createActivity(input: Activity): Activity
         editPlan(input: Plan): Plan
         editActivity(input: Activity): Activity
         removePlan(_id: ID!): User

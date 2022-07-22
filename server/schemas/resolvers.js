@@ -72,14 +72,24 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // createTravelPlan: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $push: }
-    //     )
-    //   }
-    // }
+    createTravelPlan: async (parent, args, context) => {
+      if (context.user) {
+      const plan = await Plan.create({...args, username: context.user.username})
+
+      await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: {myPlans: plan._id}},
+          {new: true },
+        );
+      
+      return plan;
+      }
+    },
+    createActivity: async (parent, args, context) => {
+      if (context.user) {
+        const activity = await Activity.create({...args,  })
+      }
+    },
   }
 };
 
