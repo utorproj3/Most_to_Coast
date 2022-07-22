@@ -6,7 +6,7 @@ const PlanSchema = new Schema(
     username: {
           type: Schema.Types.ObjectId,
           ref: 'User'
-    },
+        },
 
     planTitle: {
       type: String,
