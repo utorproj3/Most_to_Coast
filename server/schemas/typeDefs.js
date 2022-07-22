@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    type User{
+    type User {
         _id: ID
         username: String
         email: String
@@ -10,24 +10,51 @@ const typeDefs = gql`
         myPlans: [Plan]
     }
 
-    input Plan{
+    type Plan {
         _id: ID!
         username: String!
         planTitle: String!
         destination: [String!]
         descriptionText: String!
         days: [Day!]
-        startDate: Date!
-        endDate: Date!
+        startDate: String!
+        endDate: String!
     }
 
-    type Day{
+    input PlanInput {
+        _id: ID!
+        username: String!
+        planTitle: String!
+        destination: [String!]
+        descriptionText: String!
+        days: [DayInput!]
+        startDate: String!
+        endDate: String!
+    }
+
+    type Day {
         _id: ID
-        day: Number
+        day: Int
         activities: [Activity]
     }
 
-    input Activity{
+    input DayInput {
+        _id: ID
+        day: Int
+        activities: [ActivityInput]
+    }
+
+    type Activity {
+        _id: ID!
+        name: String!
+        place: String!
+        startTime: String!
+        endTime: String!
+        description: String
+        picture: String
+    }
+
+    input ActivityInput {
         _id: ID!
         name: String!
         place: String!
@@ -48,15 +75,15 @@ const typeDefs = gql`
     type Mutation {
         login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String): Auth
-        createPlan(input: Plan): Plan
-        createActivities(input: Activity): Activity
-        editPlan(input: Plan): Plan
-        editActivity(input: Activity): Activity
+        createPlan(input: PlanInput): Plan
+        createActivity(input: ActivityInput): Activity
+        editPlan(input: PlanInput): Plan
+        editActivity(input: ActivityInput): Activity
         removePlan(_id: ID!): User
         removeActivity(_id: ID!): Plan
     }
 
-    type Auth{
+    type Auth {
         token: ID!
         user: User
     }
