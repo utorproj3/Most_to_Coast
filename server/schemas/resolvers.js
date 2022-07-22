@@ -13,15 +13,21 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    allUsers: async (parent, args, context) => {
+    // get all users for search selection
+    allUsers: async () => {
       return User.find();
     },
-    allTravelPlans: async () => {
+    allTravelPlans: async (parent, args, context) => {
       if (context.user) {
         return Plan.find();
       }
 
       throw new AuthenticationError('Not logged in');
+    },
+    searchPlanByUser: async (parent, { username }) => {
+      const user = await User.findOne({ username })
+        .populate('myPlans');
+      return user;
     },
     singlePlan: async (parent, { _id }) => {
       if (context.user) {
@@ -34,7 +40,13 @@ const resolvers = {
   },
 
   Mutation: {
-    
+    login: async (parent, { email, password }) => {
+      const user = User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+    }
   }
 };
 
