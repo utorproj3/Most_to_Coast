@@ -10,15 +10,15 @@ const typeDefs = gql`
         myPlans: [Plan]
     }
 
-    type Plan{
-        _id: ID
-        username: String
-        planTitle: String
-        destination: [String]
-        descriptionText: String
-        days: [Day]
-        startDate: Date
-        endDate: Date
+    input Plan{
+        _id: ID!
+        username: String!
+        planTitle: String!
+        destination: [String!]
+        descriptionText: String!
+        days: [Day!]
+        startDate: Date!
+        endDate: Date!
     }
 
     type Day{
@@ -27,12 +27,12 @@ const typeDefs = gql`
         activities: [Activity]
     }
 
-    type Activity{
-        _id: ID
-        name: String
-        place: String
-        startTime: String
-        endTime: String
+    input Activity{
+        _id: ID!
+        name: String!
+        place: String!
+        startTime: String!
+        endTime: String!
         description: String
         picture: String
     }
@@ -41,13 +41,19 @@ const typeDefs = gql`
         me: User
         allUsers: [User]
         allTravelPlans: [Plan]
+        searchPlansByUser: [Plan]
+        singlePlan: Plan
     }
 
     type Mutation {
         login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String): Auth
-        createTravelPlan(planTitle: String!, destination: [String!], descriptionText: String!, days: Number!, startDate: Date!, endDate: Date!): Plan
-        createActivities(name: String!, place: String!,startTime: String!, endTime: String!,description: String!,picture: String!): Activity
+        createPlan(input: Plan): Plan
+        createActivities(input: Activity): Activity
+        editPlan(input: Plan): Plan
+        editActivity(input: Activity): Activity
+        removePlan(_id: ID!): User
+        removeActivity(_id: ID!): Plan
     }
 
     type Auth{

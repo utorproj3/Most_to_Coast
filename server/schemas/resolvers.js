@@ -24,10 +24,13 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    searchPlanByUser: async (parent, { username }) => {
-      const user = await User.findOne({ username })
-        .populate('myPlans');
-      return user;
+    searchPlansByUser: async (parent, { username }) => {
+      if (context.user) {
+        return User.findOne({ username })
+          .populate('myPlans');
+      }
+
+      throw new AuthenticationError('Not logged in');
     },
     singlePlan: async (parent, { _id }) => {
       if (context.user) {
@@ -41,14 +44,42 @@ const resolvers = {
 
   Mutation: {
     login: async (parent, { email, password }) => {
+      // get user by its email
       const user = User.findOne({ email });
 
+      // if no user found by the email, throw err
       if (!user) {
         throw new AuthenticationError('Incorrect credentials');
       }
-    }
 
-    
+      // check if the user's password is correct or not
+      const correctPwd = await user.isCorrectPassword(password);
+
+      // if the password did not match, throw err
+      if (!correctPwd) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      // if credentials matches, create token for the user and return them
+      const token = signToken(user);
+      return { token, user };
+    },
+    createUser: async (parent, args) => {
+      // create user
+      const user = await User.create(args);
+
+      // create token and return them
+      const token = signToken(user);
+      return { token, user };
+    },
+    // createTravelPlan: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const user = await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $push: }
+    //     )
+    //   }
+    // }
   }
 };
 
