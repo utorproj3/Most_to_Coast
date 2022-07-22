@@ -72,7 +72,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    createTravelPlan: async (parent, args, context) => {
+    createPlan: async (parent, args, context) => {
       if (context.user) {
       const plan = await Plan.create({...args, username: context.user.username})
 
@@ -84,12 +84,36 @@ const resolvers = {
       
       return plan;
       }
+      throw new AuthenticationError('You need to be logged in');
     },
+
+    editPlan: async(parent, args, context) => {
+      if (context.user){
+        const plan = await Plan.findOneAndUpdate(
+          {_id: context.plan._id},
+          args,
+          {new: true}
+        );
+        return plan;
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
     createActivity: async (parent, args, context) => {
       if (context.user) {
-        const activity = await Activity.create({...args,  })
+        const activity = await Activity.create({args})
+
+        await Day.findOneAndUpdate(
+          { _id: context.day._id},
+          {$push: {activities: activity._id}},
+          {new: true}
+        );
+
+      return activity;
       }
+      throw new AuthenticationError('You need to be logged in');
     },
+
   }
 };
 

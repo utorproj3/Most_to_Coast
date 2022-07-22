@@ -77,6 +77,7 @@ const typeDefs = gql`
         createUser(username: String!, email: String!, password: String): Auth
         createPlan(input: PlanInput): Plan
         createActivity(input: ActivityInput): Activity
+        createDay():Day
         editPlan(input: PlanInput): Plan
         editActivity(input: ActivityInput): Activity
         removePlan(_id: ID!): User
