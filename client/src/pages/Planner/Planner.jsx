@@ -3,6 +3,8 @@ import "./Planner.css";
 
 export default function Planner() {
     return (
-        <div></div>
+        <div>
+            planner test
+        </div>
     )
 }

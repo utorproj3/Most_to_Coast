@@ -3,6 +3,8 @@ import "./Account.css";
 
 export default function Account() {
     return (
-        <div></div>
+        <div>
+            Account test
+        </div>
     )
 }

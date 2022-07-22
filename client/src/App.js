@@ -37,11 +37,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+//window.location.href = href for where we're at
+
 function App() {
+  let path = window.location.href.split("/")[3];
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Header />
+      <Router >
+        {path == '' ? '' : (<Header />)}
         <Routes>
           <Route
             path="/"
@@ -68,7 +71,6 @@ function App() {
             element={<View />}
           />
         </Routes>
-        <Footer />
       </Router>
     </ApolloProvider>
   );

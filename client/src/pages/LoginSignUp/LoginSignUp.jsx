@@ -3,6 +3,8 @@ import "./LoginSignUp.css";
 
 export default function LoginSignUp() {
     return (
-        <div></div>
+        <div>
+            signup test
+        </div>
     )
 }
