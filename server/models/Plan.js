@@ -2,12 +2,6 @@ const { Schema, model } = require('mongoose');
 
 const PlanSchema = new Schema(
   {
-    //Because it will only create for the logged in user, we probably dont need this code
-    username: {
-          type: Schema.Types.ObjectId,
-          ref: 'User'
-        },
-
     planTitle: {
       type: String,
       required: true,
@@ -22,7 +16,7 @@ const PlanSchema = new Schema(
 
     descriptionText: {
       type: String,
-      required: 'You need to provide your reaction text.',
+      required: 'You need to provide your description text.',
       minLength: 1,
       maxLength: 280
   },

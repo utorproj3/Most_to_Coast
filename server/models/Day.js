@@ -3,10 +3,10 @@ const { Schema, model } = require('mongoose');
 // add activity to the time schedule
 const DaySchema = new Schema (
     {
-        day: {
+        dayNumber: {
             type: Number,
             required: true,
-            autoIncrement: true
+            // autoIncrement: true
         },
 
         activities: [

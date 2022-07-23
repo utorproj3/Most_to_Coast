@@ -11,41 +11,39 @@ const typeDefs = gql`
     }
 
     type Plan {
-        _id: ID!
-        username: String!
+        _id: ID
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        days: [Day!]
+        days: [Day]
         startDate: String!
         endDate: String!
     }
 
     input PlanInput {
-        _id: ID!
-        username: String!
+        _id: ID
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        days: [DayInput!]
+        days: [DayInput]
         startDate: String!
         endDate: String!
     }
 
     type Day {
         _id: ID
-        day: Int
+        dayNumber: Int
         activities: [Activity]
     }
 
     input DayInput {
         _id: ID
-        day: Int!
+        dayNumber: Int
         activities: [ActivityInput]
     }
 
     type Activity {
-        _id: ID!
+        _id: ID
         name: String!
         place: String!
         startTime: String!
@@ -55,7 +53,7 @@ const typeDefs = gql`
     }
 
     input ActivityInput {
-        _id: ID!
+        _id: ID
         name: String!
         place: String!
         startTime: String!
@@ -68,7 +66,7 @@ const typeDefs = gql`
         me: User
         allUsers: [User]
         allTravelPlans: [Plan]
-        searchPlansByUser: [Plan]
+        searchPlansByUser: [User]
         singlePlan: Plan
     }
 
@@ -78,7 +76,7 @@ const typeDefs = gql`
         createPlan(input: PlanInput): Plan
         editPlan(input: PlanInput): Plan
         removePlan(_id: ID!): User
-        createDay(planId: ID!, input: DayInput): Plan
+        createDay(planId: ID!, input: DayInput): Day
         removeDay(planId: ID!, _id: ID!): Plan
         createActivity(input: ActivityInput): Activity
         editActivity(dayId: ID!, input: ActivityInput): Activity

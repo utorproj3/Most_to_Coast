@@ -19,7 +19,8 @@ const resolvers = {
     },
     allTravelPlans: async (parent, args, context) => {
       if (context.user) {
-        return Plan.find();
+        return Plan.find()
+          .populate('days');
       }
 
       throw new AuthenticationError('You need to be logged in');
@@ -72,26 +73,26 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    createPlan: async (parent, args, context) => {
+    createPlan: async (parent, { input }, context) => {
       if (context.user) {
-      const plan = await Plan.create({...args, username: context.user.username})
+      const plan = await Plan.create(input);
 
-      await User.findOneAndUpdate(
+      const user = await User.findOneAndUpdate (
         { _id: context.user._id },
-        { $push: {myPlans: plan._id}},
-        {new: true },
-        );
+        { $push: { myPlans: plan._id } },
+        { new: true },
+      );
       
       return plan;
       }
       throw new AuthenticationError('You need to be logged in');
     },
 
-    editPlan: async(parent, args, context) => {
+    editPlan: async(parent, { input }, context) => {
       if (context.user){
         const plan = await Plan.findOneAndUpdate(
           {_id: context.plan._id},
-          args,
+          input,
           {new: true}
         );
         return plan;
@@ -118,11 +119,13 @@ const resolvers = {
       if (context.user) {
         const dayData = await Day.create(input);
 
-        return await Plan.findOneAndUpdate(
+        await Plan.findOneAndUpdate(
           { _id: planId },
           { $push: { days: dayData } },
           { new: true }
         );
+
+        return dayData;
       }
 
       throw new AuthenticationError('You need to be logged in');
@@ -142,9 +145,9 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    createActivity: async (parent, args, context) => {
+    createActivity: async (parent, { input }, context) => {
       if (context.user) {
-        const activity = await Activity.create({args})
+        const activity = await Activity.create(input)
 
         await Day.findOneAndUpdate(
           { _id: context.day._id},
