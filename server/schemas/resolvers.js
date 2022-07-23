@@ -17,26 +17,35 @@ const resolvers = {
     allUsers: async () => {
       return User.find();
     },
+
     allTravelPlans: async (parent, args, context) => {
       if (context.user) {
-        return Plan.find()
-          .populate('days');
+        return Plan.find();
       }
-
+      
       throw new AuthenticationError('You need to be logged in');
     },
-    searchPlansByUser: async (parent, { username }) => {
+    
+    searchPlansByUser: async (parent, { username }, context) => {
       if (context.user) {
         return User.findOne({ username })
           .populate('myPlans');
       }
-
+      
       throw new AuthenticationError('You need to be logged in');
     },
-    singlePlan: async (parent, { _id }) => {
+    
+    singlePlan: async (parent, { _id }, context) => {
       if (context.user) {
         return Plan.findOne({ _id })
-          .populate('days');
+          .populate('days')
+          .populate({
+            path: 'days',
+            populate: {
+              path: 'activities',
+              model: 'Activity'
+            }
+          });
       }
 
       throw new AuthenticationError('You need to be logged in');
@@ -52,6 +61,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+
     login: async (parent, { email, password }) => {
       // get user by its email
       const user = await User.findOne({ email });
@@ -73,30 +83,32 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+
     createPlan: async (parent, { input }, context) => {
       if (context.user) {
-      const plan = await Plan.create(input);
+        const plan = await Plan.create(input);
 
-      const user = await User.findOneAndUpdate (
-        { _id: context.user._id },
-        { $push: { myPlans: plan._id } },
-        { new: true },
-      );
-      
-      return plan;
+        await User.findOneAndUpdate (
+          { _id: context.user._id },
+          { $push: { myPlans: plan._id } },
+          { new: true },
+        );
+        
+        return plan;
       }
+
       throw new AuthenticationError('You need to be logged in');
     },
 
     editPlan: async(parent, { input }, context) => {
       if (context.user){
-        const plan = await Plan.findOneAndUpdate(
-          {_id: context.plan._id},
+        return await Plan.findOneAndUpdate(
+          { _id: context.plan._id },
           input,
-          {new: true}
+          { new: true }
         );
-        return plan;
       }
+
       throw new AuthenticationError('You need to be logged in');
     },
 
@@ -145,29 +157,39 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    createActivity: async (parent, { input }, context) => {
+    createActivity: async (parent, { planId, dayId, input }, context) => {
       if (context.user) {
-        const activity = await Activity.create(input)
+        const activity = await Activity.create(input);
 
-        await Day.findOneAndUpdate(
-          { _id: context.day._id},
-          {$push: {activities: activity._id}},
-          {new: true}
-          );
+        const day = await Day.findOneAndUpdate(
+          { _id: dayId },
+          { $push: { activities: activity._id } },
+          { new: true }
+        );
+
+        await Plan.findOneAndUpdate(
+          { _id: planId },
+          { $push: { days: day } },
+          { new: true }
+        );
           
-          return activity;
-        }
+        return activity;
+      }
       throw new AuthenticationError('You need to be logged in');
     },
 
     editActivity: async (parent, { dayId, input }, context) => {
       if (context.user) {
         const activity = await Activity.findOneAndUpdate(
-          { _id: input._id }, args, { new: true }
+          { _id: input._id }, 
+          args, 
+          { new: true }
         );
     
         await Day.findOneAndUpdate(
-          { _id: dayId }, { activities: activity }, { new: true }
+          { _id: dayId }, 
+          { activities: activity }, 
+          { new: true }
         );
     
         return activity;

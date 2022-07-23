@@ -66,8 +66,8 @@ const typeDefs = gql`
         me: User
         allUsers: [User]
         allTravelPlans: [Plan]
-        searchPlansByUser: [User]
-        singlePlan: Plan
+        searchPlansByUser(username: String!): User
+        singlePlan(_id: ID!): Plan
     }
 
     type Mutation {
@@ -78,7 +78,7 @@ const typeDefs = gql`
         removePlan(_id: ID!): User
         createDay(planId: ID!, input: DayInput): Day
         removeDay(planId: ID!, _id: ID!): Plan
-        createActivity(input: ActivityInput): Activity
+        createActivity(planId: ID!, dayId: ID!, input: ActivityInput): Activity
         editActivity(dayId: ID!, input: ActivityInput): Activity
         removeActivity(dayId: ID!, _id: ID!): Day
     }
