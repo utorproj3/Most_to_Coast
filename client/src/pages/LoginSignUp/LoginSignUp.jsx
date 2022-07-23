@@ -1,9 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginSignUp.css";
 
 export default function LoginSignUp() {
+
+    const navigate = useNavigate()
+
+    const handleSubmit = () => {
+        navigate("/main")
+    }
+
     return (
         <body>
+
+            <img src="img/Most2Coast.png" className="logo" alt="airplanelogo" />
+
             <div className='full-form'>
                 {/* <ul className='tab-group'>
                     <li className='tab-active'><a href="#signup"></a>Sign Up</li>
@@ -15,20 +26,20 @@ export default function LoginSignUp() {
 
                         <h1>Sign Up</h1>
 
-                        <form action="/" method="post">
+                        <form action="/" method="post" onSubmit={handleSubmit}>
 
                             <div className='top-row'>
                                 <div className='field-wrap'>
                                     <label>
                                         First Name<span className='req'></span>
                                     </label>
-                                    <input type='text' required autocomplete="off" />
+                                    <input type='text' required autocomplete="off" className='input-field' />
                                 </div>
                                 <div className='field-wrap'>
                                     <label>
                                         Last Name<span className='req'></span>
                                     </label>
-                                    <input type="text" required autocomplete="off" />
+                                    <input type='text' required autocomplete="off" className='input-field' />
                                 </div>
                             </div>
 
@@ -36,17 +47,17 @@ export default function LoginSignUp() {
                                 <label>
                                     Email Address<span className='req'></span>
                                 </label>
-                                <input type="email" required autocomplete="off" />
+                                <input type='email' required autocomplete="off" className='input-field' />
                             </div>
 
                             <div className='field-wrap'>
                                 <label>
                                     Set A Password<span className='req'></span>
                                 </label>
-                                <input type="password" required autocomplete="off" />
+                                <input type='password' required autocomplete="off" className='input-field' />
                             </div>
 
-                            <button type="submit" className='button'>Get Started</button>
+                            <button type='submit' className='button'>Get Started</button>
 
                         </form>
                     </div>
@@ -54,23 +65,23 @@ export default function LoginSignUp() {
                     <div id='login'>
                         <h1>Welcome Back</h1>
 
-                        <form action="/" method="post">
+                        <form action="/" method="post" onSubmit={handleSubmit}>
 
                             <div className='field-wrap'>
                                 <label>
                                     Email Address<span className='req'></span>
                                 </label>
-                                <input type="email" required autocomplete="off" />
+                                <input type="email" required autocomplete="off" className='input-field' />
                             </div>
 
                             <div className='field-wrap'>
                                 <label>
                                     Password<span className='req'></span>
                                 </label>
-                                <input type="password" required autocomplete="off" />
+                                <input type="password" required autocomplete="off" className='input-field' />
                             </div>
 
-                            <button className='button'>Log In</button>
+                            <button type='submit' className='button'>Log In</button>
                         </form>
                     </div>
                 </div>
