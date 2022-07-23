@@ -45,7 +45,7 @@ const resolvers = {
   Mutation: {
     login: async (parent, { email, password }) => {
       // get user by its email
-      const user = User.findOne({ email });
+      const user = await User.findOne({ email });
 
       // if no user found by the email, throw err
       if (!user) {
@@ -72,19 +72,65 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    editActivity: async (parent, { planId, dayId, input }, context) => {
+    createPlan: async (parent, args, context) => {
+      if (context.user) {
+      const plan = await Plan.create({...args, username: context.user.username})
+
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: {myPlans: plan._id}},
+        {new: true },
+        );
+      
+      return plan;
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    editPlan: async(parent, args, context) => {
+      if (context.user){
+        const plan = await Plan.findOneAndUpdate(
+          {_id: context.plan._id},
+          args,
+          {new: true}
+        );
+        return plan;
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    createActivity: async (parent, args, context) => {
+      if (context.user) {
+        const activity = await Activity.create({args})
+
+        await Day.findOneAndUpdate(
+          { _id: context.day._id},
+          {$push: {activities: activity._id}},
+          {new: true}
+          );
+          
+          return activity;
+        }
+      throw new AuthenticationError('You need to be logged in');
+    },
+    editActivity: async (parent, { dayId, input }, context) => {
       if (context.user) {
         const activity = await Activity.findOneAndUpdate(
           { _id: input._id }, args, { new: true }
         );
-
+    
         await Day.findOneAndUpdate(
           { _id: dayId }, { activities: activity }, { new: true }
         );
-
+    
         return activity;
       }
     },
+    removePlan: async (parent, { _id }) => {
+      if (context.user) {
+        const plan = Plan.findOneAndDelete({ _id });
+      }
+    }
   }
 };
 
