@@ -38,7 +38,7 @@ const resolvers = {
     singlePlan: async (parent, { _id }, context) => {
       if (context.user) {
         return Plan.findOne({ _id })
-          .populate('days')
+          // .populate('days')
           .populate({
             path: 'days',
             populate: {
@@ -113,7 +113,7 @@ const resolvers = {
     },
 
 
-    removePlan: async (parent, { _id }) => {
+    removePlan: async (parent, { _id }, context) => {
       if (context.user) {
         await Plan.findOneAndDelete({ _id });
 
@@ -133,7 +133,7 @@ const resolvers = {
 
         await Plan.findOneAndUpdate(
           { _id: planId },
-          { $push: { days: dayData } },
+          { $addToSet: { days: dayData } },
           { new: true }
         );
 
@@ -167,11 +167,11 @@ const resolvers = {
           { new: true }
         );
 
-        await Plan.findOneAndUpdate(
-          { _id: planId },
-          { $push: { days: day } },
-          { new: true }
-        );
+        // await Plan.findOneAndUpdate(
+        //   { _id: planId },
+        //   { $push: { days: day } },
+        //   { new: true }
+        // );
           
         return activity;
       }
@@ -191,7 +191,7 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    removeActivity: async (parent, { dayId, _id }) => {
+    removeActivity: async (parent, { dayId, _id }, context) => {
       if (context.user) {
         await Activity.findOneAndDelete({ _id });
 
