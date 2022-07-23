@@ -43,6 +43,14 @@ const resolvers = {
   },
 
   Mutation: {
+    createUser: async (parent, args) => {
+      // create user
+      const user = await User.create(args);
+
+      // create token and return them
+      const token = signToken(user);
+      return { token, user };
+    },
     login: async (parent, { email, password }) => {
       // get user by its email
       const user = await User.findOne({ email });
@@ -61,14 +69,6 @@ const resolvers = {
       }
 
       // if credentials matches, create token for the user and return them
-      const token = signToken(user);
-      return { token, user };
-    },
-    createUser: async (parent, args) => {
-      // create user
-      const user = await User.create(args);
-
-      // create token and return them
       const token = signToken(user);
       return { token, user };
     },
@@ -125,6 +125,7 @@ const resolvers = {
     
         return activity;
       }
+      throw new AuthenticationError('You need to be logged in');
     },
     removePlan: async (parent, { _id }) => {
       if (context.user) {
