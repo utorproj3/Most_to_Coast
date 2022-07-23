@@ -8,9 +8,15 @@ const About = () => {
   const [aboutMe, setAboutMe] = useState("");
 
   const handleNameChange = (e) => {
-    var userInput = e.target.value;
-    if (userInput !== "") {
+    var userInput = e.target.value.trim();
+    if (userInput.length !== 0) {
       setUserName(userInput);
+    }
+  };
+  const handleDescriptionChange = (e) => {
+    var descpInput = e.target.value.trim();
+    if (descpInput.length !== 0) {
+      setAboutMe(descpInput);
     }
   };
 
@@ -34,7 +40,11 @@ const About = () => {
               </label>
               <label>
                 About Me:
-                <textarea placeholder="About me.." required>
+                <textarea
+                  placeholder="About me.."
+                  required
+                  onChange={handleDescriptionChange}
+                >
                   Hobbies, Activities, Personality..
                 </textarea>
               </label>
