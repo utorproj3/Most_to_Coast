@@ -11,7 +11,7 @@ const resolvers = {
           .populate('myPlans');
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in');
     },
     // get all users for search selection
     allUsers: async () => {
@@ -22,7 +22,7 @@ const resolvers = {
         return Plan.find();
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in');
     },
     searchPlansByUser: async (parent, { username }) => {
       if (context.user) {
@@ -30,7 +30,7 @@ const resolvers = {
           .populate('myPlans');
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in');
     },
     singlePlan: async (parent, { _id }) => {
       if (context.user) {
@@ -38,7 +38,7 @@ const resolvers = {
           .populate('days');
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in');
     }
   },
 
@@ -99,6 +99,49 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
+
+    removePlan: async (parent, { _id }) => {
+      if (context.user) {
+        await Plan.findOneAndDelete({ _id });
+
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { myPlans: _id } },
+          { new: true }
+        );
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    createDay: async (parent, { planId, input }, context) => {
+      if (context.user) {
+        const dayData = await Day.create(input);
+
+        return await Plan.findOneAndUpdate(
+          { _id: planId },
+          { $push: { days: dayData } },
+          { new: true }
+        );
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    removeDay: async (parent, { planId, _id }, context) => {
+      if (context.user) {
+        await Day.findOneAndDelete({ _id });
+
+        return await Plan.findOneAndUpdate(
+          { _id: planId },
+          { $pull: { days: _id } },
+          { new: true }
+        );
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
     createActivity: async (parent, args, context) => {
       if (context.user) {
         const activity = await Activity.create({args})
@@ -113,6 +156,7 @@ const resolvers = {
         }
       throw new AuthenticationError('You need to be logged in');
     },
+
     editActivity: async (parent, { dayId, input }, context) => {
       if (context.user) {
         const activity = await Activity.findOneAndUpdate(
@@ -127,10 +171,19 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in');
     },
-    removePlan: async (parent, { _id }) => {
+
+    removeActivity: async (parent, { dayId, _id }) => {
       if (context.user) {
-        const plan = Plan.findOneAndDelete({ _id });
+        await Activity.findOneAndDelete({ _id });
+
+        return await Day.findOneAndUpdate(
+          { _id: dayId },
+          { $pull: { activities: _id } },
+          { new: true }
+        );
       }
+
+      throw new AuthenticationError('You need to be logged in');      
     }
   }
 };

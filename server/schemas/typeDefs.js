@@ -40,7 +40,7 @@ const typeDefs = gql`
 
     input DayInput {
         _id: ID
-        day: Int
+        day: Int!
         activities: [ActivityInput]
     }
 
@@ -76,11 +76,13 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String): Auth
         createPlan(input: PlanInput): Plan
-        createActivity(input: ActivityInput): Activity
         editPlan(input: PlanInput): Plan
-        editActivity(dayId: ID!, input: ActivityInput): Activity
         removePlan(_id: ID!): User
-        removeActivity(_id: ID!): Plan
+        createDay(planId: ID!, input: DayInput): Plan
+        removeDay(planId: ID!, _id: ID!): Plan
+        createActivity(input: ActivityInput): Activity
+        editActivity(dayId: ID!, input: ActivityInput): Activity
+        removeActivity(dayId: ID!, _id: ID!): Day
     }
 
     type Auth {
