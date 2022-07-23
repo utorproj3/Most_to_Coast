@@ -100,11 +100,11 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    editPlan: async(parent, { input }, context) => {
+    editPlan: async(parent, { planId, input }, context) => {
       if (context.user){
         return await Plan.findOneAndUpdate(
-          { _id: context.plan._id },
-          input,
+          { _id: planId },
+          { $set: input },
           { new: true }
         );
       }
@@ -175,25 +175,19 @@ const resolvers = {
           
         return activity;
       }
+      
       throw new AuthenticationError('You need to be logged in');
     },
 
-    editActivity: async (parent, { dayId, input }, context) => {
+    editActivity: async (parent, { activityId, input }, context) => {
       if (context.user) {
-        const activity = await Activity.findOneAndUpdate(
-          { _id: input._id }, 
-          args, 
+        return await Activity.findOneAndUpdate(
+          { _id: activityId }, 
+          { $set: input }, 
           { new: true }
         );
-    
-        await Day.findOneAndUpdate(
-          { _id: dayId }, 
-          { activities: activity }, 
-          { new: true }
-        );
-    
-        return activity;
       }
+
       throw new AuthenticationError('You need to be logged in');
     },
 

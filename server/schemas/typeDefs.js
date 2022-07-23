@@ -15,9 +15,9 @@ const typeDefs = gql`
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        days: [Day]
         startDate: String!
         endDate: String!
+        days: [Day]
     }
 
     input PlanInput {
@@ -25,9 +25,9 @@ const typeDefs = gql`
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        days: [DayInput]
         startDate: String!
         endDate: String!
+        days: [DayInput]
     }
 
     type Day {
@@ -74,12 +74,12 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String): Auth
         createPlan(input: PlanInput): Plan
-        editPlan(input: PlanInput): Plan
+        editPlan(planId: ID!, input: PlanInput): Plan
         removePlan(_id: ID!): User
         createDay(planId: ID!, input: DayInput): Day
         removeDay(planId: ID!, _id: ID!): Plan
         createActivity(planId: ID!, dayId: ID!, input: ActivityInput): Activity
-        editActivity(dayId: ID!, input: ActivityInput): Activity
+        editActivity(activityId: ID!, input: ActivityInput): Activity
         removeActivity(dayId: ID!, _id: ID!): Day
     }
 
