@@ -1,16 +1,18 @@
 const faker = require('faker');
 
 const db = require('../config/connection');
-const { Thought, User } = require('../models');
+const { Activity, Day, Plan, User } = require('../models');
 
 db.once('open', async () => {
-  await Thought.deleteMany({});
+  await Activity.deleteMany({});
+  await Day.deleteMany({});
+  await Plan.deleteMany({});
   await User.deleteMany({});
 
   // create user data
   const userData = [];
 
-  for (let i = 0; i < 50; i += 1) {
+  for (let i = 0; i < 10; i += 1) {
     const username = faker.internet.userName();
     const email = faker.internet.email(username);
     const password = faker.internet.password();
@@ -20,25 +22,41 @@ db.once('open', async () => {
 
   const createdUsers = await User.collection.insertMany(userData);
 
-  // create friends
-  for (let i = 0; i < 100; i += 1) {
+  let createdPlans = [];
+
+  // create plans
+  for (let i = 0; i < 20; i += 1) {
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { _id: userId } = createdUsers.ops[randomUserIndex];
 
-    let friendId = userId;
+    const planTitle = faker.lorem.words(Math.round(Math.random() * 5) + 1);
+    const destination = faker.address.cityName();
+    const descriptionText = faker.lorem.sentences();
+    const startDate = faker.date.future();
+    const endDate = faker.date.between(startDate, startDate + (Math.round(Math.random() * 10) + 1));
 
-    while (friendId === userId) {
-      const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-      friendId = createdUsers.ops[randomUserIndex];
-    }
+    const createdPlan = await Plan.create({ planTitle, destination, descriptionText, startDate, endDate });
 
-    await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
+    await User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { myPlans: createdPlan._id } },
+      { new: true },
+    );
+
+    const createdDay = await Day.create({ dayNumber: 1 });
+    await Plan.findOneAndUpdate(
+      { _id: createdPlan._id },
+      { $addToSet: { days: createdDay } },
+      { new: true }
+    );
+
+    createdPlans.push(createdPlan);
   }
 
-  // create thoughts
-  let createdThoughts = [];
+  // create Days
+  let createdDays = [];
   for (let i = 0; i < 100; i += 1) {
-    const thoughtText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const dayNumber = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
