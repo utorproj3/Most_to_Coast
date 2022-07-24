@@ -157,21 +157,15 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    createActivity: async (parent, { planId, dayId, input }, context) => {
+    createActivity: async (parent, { dayId, input }, context) => {
       if (context.user) {
         const activity = await Activity.create(input);
 
-        const day = await Day.findOneAndUpdate(
+        await Day.findOneAndUpdate(
           { _id: dayId },
           { $push: { activities: activity._id } },
           { new: true }
         );
-
-        // await Plan.findOneAndUpdate(
-        //   { _id: planId },
-        //   { $push: { days: day } },
-        //   { new: true }
-        // );
           
         return activity;
       }

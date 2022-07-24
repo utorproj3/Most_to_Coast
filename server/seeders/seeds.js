@@ -4,6 +4,7 @@ const db = require('../config/connection');
 const { Activity, Day, Plan, User } = require('../models');
 
 db.once('open', async () => {
+  // delete all data to reset db
   await Activity.deleteMany({});
   await Day.deleteMany({});
   await Plan.deleteMany({});
@@ -20,29 +21,32 @@ db.once('open', async () => {
     userData.push({ username, email, password });
   }
 
+  // create user in db
   const createdUsers = await User.collection.insertMany(userData);
 
-  let createdPlans = [];
-
   // create plans
+  let createdPlans = [];
   for (let i = 0; i < 20; i += 1) {
+    // choose user at random
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { _id: userId } = createdUsers.ops[randomUserIndex];
 
+    // create plan data
     const planTitle = faker.lorem.words(Math.round(Math.random() * 5) + 1);
     const destination = faker.address.cityName();
     const descriptionText = faker.lorem.sentences();
     const startDate = faker.date.future();
     const endDate = faker.date.between(startDate, startDate + (Math.round(Math.random() * 10) + 1));
 
+    // create plan in db
     const createdPlan = await Plan.create({ planTitle, destination, descriptionText, startDate, endDate });
-
     await User.findOneAndUpdate(
       { _id: userId },
       { $push: { myPlans: createdPlan._id } },
       { new: true },
     );
 
+    // create 1st day in the plan
     const createdDay = await Day.create({ dayNumber: 1 });
     await Plan.findOneAndUpdate(
       { _id: createdPlan._id },
@@ -55,39 +59,72 @@ db.once('open', async () => {
 
   // create Days
   let createdDays = [];
-  for (let i = 0; i < 100; i += 1) {
-    const dayNumber = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+  for (let i = 0; i < 60; i += 1) {
+    // randomly select plan
+    const randomPlanIndex = Math.floor(Math.random() * createdPlans.ops.length);
+    const { _id: planId, dayNumber } = createdPlans.ops[randomPlanIndex];
+    // increment the number from randomly selected Plan's dayNumber
+    const dayNumberData =+ dayNumber;
 
-    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
-
-    const createdThought = await Thought.create({ thoughtText, username });
-
-    const updatedUser = await User.updateOne(
-      { _id: userId },
-      { $push: { thoughts: createdThought._id } }
+    // create Day in db
+    const createdDay = await Day.create({ dayNumber: dayNumberData });
+    await Plan.findOneAndUpdate(
+      { _id: planId },
+      { $addToSet: { days: createdDay } },
+      { new: true }
     );
 
-    createdThoughts.push(createdThought);
+   createdDays.push(createdDay); 
   }
 
-  // create reactions
+  // create activities
   for (let i = 0; i < 100; i += 1) {
-    const reactionBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    // create activity data
+    const name = faker.lorem.words(Math.round(Math.random() * 3) + 1);
+    const place = [
+      faker.address.streetAddress(true), 
+      faker.address.city(), 
+      faker.address.country()
+    ].join();
+    
+    // if the faker returns true, set the start time as 'am' or else 'pm'
+    let startHour;
+    let amOrPm;
+    if (faker.datatype.boolean()) {
+      startHour = Math.floor(Math.random() * (12 + 1 - 9)) + 9;
+      amOrPm = 'am';
+    } else {
+      startHour = Math.floor(Math.random() * 12) + 1;
+      amOrPm = 'pm';
+    }
+    
+    const startTime = [
+      startHour, 
+      ':', 
+      Math.floor(Math.random() * 60),
+      amOrPm
+    ].join('');
+    // add 1 hour to the startTime as endTime
+    const endTime = [
+      startHour + 1,
+      ':', 
+      Math.floor(Math.random() * 60),
+      amOrPm
+    ].join('');
+    
+    // randomly select day
+    const randomDayIndex = Math.floor(Math.random() * createdDays.ops.length);
+    const { _id: dayId } = createdDays.ops[randomDayIndex];
 
-    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { username } = createdUsers.ops[randomUserIndex];
-
-    const randomThoughtIndex = Math.floor(Math.random() * createdThoughts.length);
-    const { _id: thoughtId } = createdThoughts[randomThoughtIndex];
-
-    await Thought.updateOne(
-      { _id: thoughtId },
-      { $push: { reactions: { reactionBody, username } } },
-      { runValidators: true }
+    // create activity in db
+    const createdActivity = await Activity.create({ name, place, startTime, endTime });
+    await Day.findOneAndUpdate(
+      { _id: dayId },
+      { $push: { activities: createdActivity._id } },
+      { new: true }
     );
   }
 
-  console.log('all done!');
+  console.log('all seeded!');
   process.exit(0);
 });
