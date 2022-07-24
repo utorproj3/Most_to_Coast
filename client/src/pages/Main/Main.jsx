@@ -3,7 +3,7 @@ import "./Main.css";
 
 export default function Main() {
     return (
-        <div>
+        <div className=''>
             main test
         </div>
     )

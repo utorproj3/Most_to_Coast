@@ -16,10 +16,6 @@ export default function LoginSignUp() {
             <img src="img/Most2Coast.png" className="logo" alt="airplanelogo" />
 
             <div className='full-form'>
-                {/* <ul className='tab-group'>
-                    <li className='tab-active'><a href="#signup"></a>Sign Up</li>
-                    <li className='tab'><a href="#login">Log In</a></li>
-                </ul> */}
 
                 <div className='tab-content'>
                     <div id="signup">

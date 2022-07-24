@@ -1,5 +1,5 @@
 header {
-    height: 300px;
+    height: 200px;
 }
 
 .logo-header {
@@ -7,46 +7,38 @@ header {
     width: auto;
 }
 
-/* .navbar {
-    margin: 50px;
-    text-decoration: none;
-    font-size: 1vw;
-}
-
-.navbar li {
-    display: inline;
+.navbar {
+    position: fixed; 
+    display: flex;
+    width: 100%; 
+    top: 0;
+    left: 0;
+    height: 120px;
+    line-height: 120px;
 }
 
 .navbar ul {
-    width: auto;
-    list-style: none;
-}
-
-.navbar a {
-    text-decoration: none;
-    font-size: 1vw;
-    color: #0348a3;
-} */
-
-ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    height: 120px;
 }
 
-li {
+.navbar li {
     float: left;
 }
 
 li a {
-    display: block;
+    display: inline-block;
     color: #3dc4f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    transition-duration: 0.3s;
+    font-size: 2vw;
 }
 
 li a:hover {
-    background-color: #111;
+    opacity: 0;
 }
