@@ -20,16 +20,19 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
-    thoughts: [
+    iconUrl: {
+      type: String,
+      required: false,
+      default: 'https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png'
+    },
+    description: {
+      type: String,
+      required: false
+    },
+    myPlans: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thought'
-      }
-    ],
-    friends: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Plan'
       }
     ]
   },
@@ -55,9 +58,6 @@ userSchema.methods.isCorrectPassword = async function(password) {
   return bcrypt.compare(password, this.password);
 };
 
-userSchema.virtual('friendCount').get(function() {
-  return this.friends.length;
-});
 
 const User = model('User', userSchema);
 
