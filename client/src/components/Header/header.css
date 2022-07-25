@@ -1,0 +1,44 @@
+header {
+    height: 200px;
+}
+
+.logo-header {
+    height: 100px;
+    width: auto;
+}
+
+.navbar {
+    position: fixed; 
+    display: flex;
+    width: 100%; 
+    top: 0;
+    left: 0;
+    height: 120px;
+    line-height: 120px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 120px;
+}
+
+.navbar li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: #3dc4f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.3s;
+    font-size: 2vw;
+}
+
+li a:hover {
+    opacity: 0.25;
+}

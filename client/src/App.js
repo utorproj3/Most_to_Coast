@@ -9,12 +9,9 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Header from './components/Header';
-import Footer from './components/Footer';
-
 import LoginSignUp from './pages/LoginSignUp/LoginSignUp';
 import Main from './pages/Main/Main';
 import Account from './pages/Account/Account';
-import Search from './pages/Search/Search';
 import Planner from './pages/Planner/Planner';
 import View from './pages/ViewPlanner/ViewPlanner';
 
@@ -38,11 +35,11 @@ const client = new ApolloClient({
 });
 
 function App() {
+  let path = window.location.href.split("/")[3];
   return (
     <ApolloProvider client={client}>
-    <Router>
-      <Header />
-
+      <Router >
+        {path === '' ? '' : (<Header />)}
         <Routes>
           <Route
             path="/"
@@ -55,10 +52,6 @@ function App() {
           <Route
             path="/account"
             element={<Account />}
-          />
-          <Route
-            path="/search"
-            element={<Search />}
           />
           <Route
             path="/planner"
