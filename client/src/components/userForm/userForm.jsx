@@ -74,9 +74,14 @@ const UserForm = () => {
           </div>
         </div>
 
-        <button type="submit" className="submit-btn">
-          Submit
-        </button>
+        <div className="flex-btn">
+          <button type="reset" className="reset-btn">
+            Reset/Edit
+          </button>
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
