@@ -84,6 +84,17 @@ const resolvers = {
       return { token, user };
     },
 
+    editUser: async (parent, {input}, context) => {
+      if(context.user){
+        return await User.findOneAndUpdate(
+          {_id: context.user._id}, 
+          { $set: input },
+          {new: true},
+        )
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
     createPlan: async (parent, { input }, context) => {
       if (context.user) {
         const plan = await Plan.create(input);
