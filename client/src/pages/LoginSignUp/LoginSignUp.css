@@ -51,6 +51,7 @@ h1 {
     color: #3dc4f2;
     font-family: 'Edu NSW ACT Foundation', cursive;
     font-size: large;
+    padding: 10px;
     transition-duration: 0.4s;
 }
 
