@@ -12,7 +12,8 @@ export default function Main() {
                     </label>
                     <br></br>
                     <input type='text' required autocomplete="off" className='search-field' />
-                    <button className='search-button'></button>
+                    <br></br>
+                    <button className='search-button'>search</button>
                 </div>
             </form>
 
