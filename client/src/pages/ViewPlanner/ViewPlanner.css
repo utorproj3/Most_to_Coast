@@ -1,0 +1,59 @@
+/* .parent {
+
+    text-align: left;
+    
+} */
+
+/* html, body {
+    margin: 0;
+    height: 100%;
+} */
+.viewplan {
+    width: 100%;
+    height: 100%;
+}
+.plan-title {
+    display: inline-block;
+    padding-left: 5%;
+    
+    /* display:flex;
+    justify-content:space-around; */
+    vertical-align: middle;
+}
+.plan-nickname {
+    display: inline-block;
+    padding-left: 40%;
+    position: center;
+    /* display:flex;
+    justify-content:space-around; */
+    vertical-align: middle;
+}
+
+.row1 {
+    padding-left: 40%;
+}
+.planner {
+    width: 100%;
+    height: 100%;
+}
+
+.planner-inputs {
+    display: flex;
+}
+
+.planner-table {
+    width:70%;
+    float:right;
+}
+
+td,
+th {
+    border: 1px solid white;
+    text-align: left;
+    padding: 8px;
+}
+
+.planner-button {
+    height: 30px;
+}
+
