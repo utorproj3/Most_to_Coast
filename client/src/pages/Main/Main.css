@@ -1,0 +1,28 @@
+/* .main {
+    
+} */
+
+.search-form {
+    text-align: center;
+}
+
+.search-field {
+    background: none;
+    background-color: none;
+    box-shadow: none;
+    border: 1.5px solid #3dc4f2;
+    border-radius: 50%;
+    height: 50px;
+    padding: 15px;
+    outline: 0;
+    margin-top: 8px;
+}
+
+.search-input-text {
+    text-align: center;
+}
+
+.search-button {
+    text-align: center;
+    margin-top: 8px;
+}

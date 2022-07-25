@@ -1,0 +1,24 @@
+.planner {
+    width: 100%;
+    height: 100%;
+}
+
+.planner-inputs {
+    display: flex;
+}
+
+.panner-table {
+    width:45%;
+    float:right;
+}
+
+td,
+th {
+    border: 1px solid white;
+    text-align: left;
+    padding: 8px;
+}
+
+.planner-button {
+    height: 30px;
+}
