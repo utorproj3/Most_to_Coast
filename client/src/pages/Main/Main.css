@@ -20,9 +20,46 @@
 
 .search-input-text {
     text-align: center;
+    font-size: 2vw;
 }
 
 .search-button {
     text-align: center;
     margin-top: 8px;
+    background: none;
+    transition-duration: 0.5s;
+    color: #3dc4f2;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    font-size: 1.5vw;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.search-button:hover {
+    text-align: center;
+    margin-top: 8px;
+    background: none;
+    background-color: #3dc4f2;
+    color: #90d8f4;
+}
+
+.cloud1 {
+    position: absolute;
+    display: flex;
+    height: auto;
+    width: 35%;
+    top: 0;
+    right: 0;
+    opacity: 0.3;
+}
+
+.cloud2 {
+    position: absolute;
+    display: flex;
+    height: auto;
+    width: 35%;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
 }
