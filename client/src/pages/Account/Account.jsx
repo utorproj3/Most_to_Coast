@@ -9,23 +9,18 @@ const About = () => {
   return (
     // if NOT logged in, login/signup component, else (logged in), here's the Account Page
     // UserForm used to state/change username, description about user, and icon/avatar pic
-    <>
-      {!loggedIn ? (
-        <LoginSignUp />
-      ) : (
-        <div>
-          <UserForm />
-          <div id="my-plans-component">
-            <h1>My Plans:</h1>
-            <div id="plan-component">
-              {/* google maps */}
-
-              {/* Description */}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    // <>
+    //   {!loggedIn ? (
+    //     <LoginSignUp />
+    //   ) : (
+    //     <div>
+    //       <UserForm />
+    //     </div>
+    //   )}
+    // </>
+    <div>
+      <UserForm />
+    </div>
   );
 };
 

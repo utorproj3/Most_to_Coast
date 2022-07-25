@@ -25,6 +25,7 @@ const UserForm = () => {
     setAvatarPic(imgInput);
   };
 
+  // can change username, description , and Icon URL/avatar!
   return (
     <div>
       <form>
@@ -38,7 +39,6 @@ const UserForm = () => {
               id="username"
               required
             />
-            Username
           </label>
         </div>
         <div>
