@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const PlanSchema = new Schema(
   {
@@ -30,18 +31,20 @@ const PlanSchema = new Schema(
 
     startDate: {
       type: Date,
-      required: 'You need to provide the start Date of the trip'
+      required: 'You need to provide the start Date of the trip',
+      get: timestamp => dateFormat(timestamp)
     },
 
     endDate: {
       type: Date,
-      required: 'You need to provide the end date of the trip'
+      required: 'You need to provide the end date of the trip',
+      get: timestamp => dateFormat(timestamp)
     }
   },
 
   {
     toJSON: {
-      virtuals: true
+      getter: true
     }
   }
 );
