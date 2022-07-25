@@ -13,10 +13,17 @@ const About = () => {
       {!loggedIn ? (
         <LoginSignUp />
       ) : (
-        <di>
+        <div>
           <UserForm />
-          <div></div>
-        </di>
+          <div id="my-plans-component">
+            <h1>My Plans:</h1>
+            <div id="plan-component">
+              {/* google maps */}
+
+              {/* Description */}
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

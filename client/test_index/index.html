@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    Hello World
+    <div>
+      <form>
+        <div className="field-wrap">
+          <label>
+            Username:
+            <input
+              value="{userName}"
+              onChange="{handleNameChange}"
+              placeholder="username"
+              id="username"
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            About Me:
+            <textarea
+              value="{aboutMe}"
+              onChange="{handleDescriptionChange}"
+              placeholder="About me.."
+              id="about-me"
+              required
+            >
+              Hobbies, Activities, Personality..
+            </textarea>
+          </label>
+        </div>
+        <div>
+          <img src="{avatarPic}" alt="" />
+          <label>
+            Choose an Avatar:
+            <input
+              type="file"
+              id="avatar"
+              accept="image/png, image/jpeg"
+              onChange="{handleAvatarChange}"
+            />
+          </label>
+        </div>
+        <div>
+          <div id="map"></div>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
