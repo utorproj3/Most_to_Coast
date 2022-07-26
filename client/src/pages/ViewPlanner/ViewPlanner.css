@@ -11,22 +11,36 @@
 .viewplan {
     width: 100%;
     height: 100%;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
 }
 .plan-title {
     display: inline-block;
     padding-left: 5%;
-    
-    /* display:flex;
-    justify-content:space-around; */
     vertical-align: middle;
+    font-size: large;
+    font-weight: 500;
 }
 .plan-nickname {
     display: inline-block;
-    padding-left: 40%;
+    padding-left: 20%;
     position: center;
-    /* display:flex;
-    justify-content:space-around; */
+    font-size: large;
+    font-weight: 500;
     vertical-align: middle;
+}
+
+.plan-details {
+
+    font-size: large;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.user-plans {
+    padding-left: 20%;
+    border-style: solid;
+    border-color:#3dc4f2 ;
 }
 
 .row1 {
@@ -43,7 +57,9 @@
 
 .planner-table {
     width:70%;
-    float:right;
+    border-style: solid;
+    border-color:#3dc4f2 ;
+
 }
 
 td,
@@ -56,4 +72,5 @@ th {
 .planner-button {
     height: 30px;
 }
+
 
