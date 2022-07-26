@@ -37,6 +37,7 @@ li a {
     text-decoration: none;
     transition-duration: 0.3s;
     font-size: 2vw;
+    font-family: 'Edu NSW ACT Foundation', cursive;
 }
 
 li a:hover {
