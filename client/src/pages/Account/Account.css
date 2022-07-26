@@ -13,19 +13,8 @@ main {
 body {
     margin: 0;
     padding: 0;
-    font-size: 18px;
+    font-size: 28px;
     background: white;
     color: #3dc4f2;
     font-family: 'Edu NSW ACT Foundation', cursive;
-}
-
-.logo {
-  /* height: 799px;
-  width: 788.5px; */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: auto;
-  width: 50%;
-  opacity: 0.15;
 }
