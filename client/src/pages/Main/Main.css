@@ -21,6 +21,8 @@
 .search-input-text {
     text-align: center;
     font-size: 2vw;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
 }
 
 .search-button {

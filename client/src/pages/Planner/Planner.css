@@ -1,3 +1,12 @@
+.container-fluid {
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
+}
+
+.container {
+    padding: 20px;
+}
+
 .planner {
     width: 100%;
     height: 100%;
@@ -7,9 +16,19 @@
     display: flex;
 }
 
+.planner-form {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+.planner-section-1 {
+    display: inline-block;
+}
+
 .panner-table {
-    width:45%;
-    float:right;
+    width: 45%;
+    float: right;
 }
 
 td,
@@ -20,5 +39,37 @@ th {
 }
 
 .planner-button {
-    height: 30px;
+    text-align: center;
+    background: none;
+    transition-duration: 0.5s;
+    color: #3dc4f2;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    font-size: 1.5vw;
+    border: none;
 }
+
+.planner-button:hover {
+    text-align: center;
+    background: none;
+    color: #90d8f4;
+    opacity: 0.5;
+}
+
+/* .btn-outline {
+    text-align: center;
+    background: none;
+    transition-duration: 0.5s;
+    color: #3dc4f2;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    font-size: 1.5vw;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+} */
+
+/* .btn:focus {
+    text-align: center;
+    background: none;
+    background-color: #3dc4f2;
+    color: #90d8f4;
+} */

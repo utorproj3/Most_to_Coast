@@ -1,3 +1,23 @@
 .field-wrap {
   padding: 10px;
 }
+main {
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 50px 30px;
+}
+
+:root {
+--primary: #90d8f4;
+--secondary: #3dc4f2;
+--tertiary: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    background: white;
+    color: #3dc4f2;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+}
