@@ -75,7 +75,7 @@ export default function ViewPlanner() {
                     <div class="vote roundrect">
                         <div class="increment up"></div>
                         <div class="increment down"></div>
-                        <div class="count">105</div>
+                        <div class="count">1053</div>
                     </div>
                 </div>
 
