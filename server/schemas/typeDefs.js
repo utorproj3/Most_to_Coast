@@ -62,6 +62,12 @@ const typeDefs = gql`
         picture: String
     }
 
+    input UserInput {
+        username: String
+        iconUrl: String
+        description: String
+    }
+
     type Query {
         me: User
         allUsers: [User]
@@ -74,6 +80,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(username: String!, email: String!, password: String): Auth
         createPlan(input: PlanInput): Plan
+        editUser(input: UserInput): User
         editPlan(planId: ID!, input: PlanInput): Plan
         removePlan(_id: ID!): User
         createDay(planId: ID!, input: DayInput): Day
