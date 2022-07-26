@@ -1,0 +1,62 @@
+form {
+  background-color: #f1fbff;
+  min-width: min-content;
+  max-width: 850px;
+  height: 500px;
+  margin: 5% 10%;
+  font-size: 30px;
+  padding: 2px;
+}
+.form-container {
+  display: flex;
+  padding: 5px;
+}
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+img {
+  height: 260px;
+}
+.user-form {
+  padding: 5px;
+  font-size: 40px;
+}
+::placeholder {
+  color: rgb(154, 176, 184);
+  font-size: 18px;
+}
+.flex-btn {
+  display: flex;
+  max-width: 825px;
+  margin: 20px 25px;
+}
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5%;
+  background-color: #3dc4f2;
+  margin: auto;
+  min-width: 35%;
+  font-weight: 700;
+  font-size: 20px;
+}
+.reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5%;
+  background-color: #81d5f1;
+  margin: auto;
+  min-width: 35%;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 1000px) {
+  .user-form {
+    padding: 5px;
+  }
+}

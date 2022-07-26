@@ -17,7 +17,6 @@ const resolvers = {
     allUsers: async () => {
       return User.find();
     },
-
     allTravelPlans: async (parent, args, context) => {
       if (context.user) {
         return Plan.find();
