@@ -40,7 +40,6 @@ export default function SignUpForm() {
     };
 
     return (
-
         <form action="/" method="post" onSubmit={handleSubmit}>
             <div className='top-row'>
                 <div className='field-wrap'>
@@ -68,7 +67,8 @@ export default function SignUpForm() {
                     name="email"
                     required
                     value={signupState.email}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                />
             </div>
 
             <div className='field-wrap'>
@@ -80,7 +80,8 @@ export default function SignUpForm() {
                     name="password"
                     required
                     value={signupState.password}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                />
             </div>
 
             <button

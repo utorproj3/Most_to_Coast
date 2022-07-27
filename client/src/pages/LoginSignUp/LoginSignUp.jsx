@@ -14,16 +14,13 @@ export default function LoginSignUp() {
 
                 <div className='tab-content'>
                     <div id="signup">
-
                         <h1>Sign Up</h1>
                         <SignUpForm />
                     </div>
 
                     <div id='login'>
-
                         <h1>Welcome Back</h1>
-                        {/* <LoginForm /> */}
-
+                        <LoginForm />
                     </div>
                 </div>
             </div>

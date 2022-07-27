@@ -6,7 +6,7 @@ import Auth from "../utils/auth";
 
 export default function LoginForm() {
     const navigate = useNavigate()
-    const [loginUser, { error: loginError }] = useMutation(LOGIN_USER);
+    const [loginUser, { error }] = useMutation(LOGIN_USER);
     const [loginState, setLoginState] = useState({ email: "", password: "" });
 
     const handleChange = (event) => {
@@ -17,13 +17,6 @@ export default function LoginForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // check if form has everything (as per react-bootstrap docs)
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
         try {
             // execute loginUser mutation and get Auth data
             const { data } = await loginUser({
@@ -33,10 +26,10 @@ export default function LoginForm() {
             if (!data) {
                 throw new Error('something went wrong!');
             }
-            Auth.login(data.loginUser.token); navigate("/main")
+
+            Auth.login(data.login.token);
         } catch (err) {
             console.error(err);
-            // setShowAlert(true);
         }
 
         setLoginState({
@@ -49,36 +42,36 @@ export default function LoginForm() {
         <form action="/" method="post" onSubmit={handleSubmit}>
 
             <div className='field-wrap'>
-                <label>
+                <label htmlFor='email'>
                     Email Address<span className='req'></span>
                 </label>
                 <input
                     className='input-field'
                     type="email"
                     name='email'
-                    id='email'
                     required
                     value={loginState.email}
                     onChange={handleChange}
-                    autocomplete="off" />
+                />
             </div>
 
             <div className='field-wrap'>
-                <label>
+                <label htmlFor='password'>
                     Password<span className='req'></span>
                 </label>
                 <input type="password"
                     name="password"
                     required
-                    //id=""
                     value={loginState.password}
-                    autocomplete="off"
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                />
             </div>
 
             <button
                 type='submit'
-                className='button'>
+                className='button'
+                onClick={function(){navigate('/main')}}
+            >
                 Log In
             </button>
         </form>
