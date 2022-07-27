@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from "react";
+import React, { useEffect, useState } from "react";
 import "./Main.css";
 
 export default function Main() {
@@ -7,7 +7,7 @@ export default function Main() {
         filteredPosts: []
     })
 
-    useEffect(()=>{
+    useEffect(() => {
 
         // here grab all of the data from the backend and set it to state
         // setUserPost({posts: data from backend})
@@ -26,8 +26,6 @@ export default function Main() {
     return (
         <div className='main'>
 
-            <img src="img/cloud1.png" className="cloud1" alt="cloud1" />
-            <img src="img/cloud2.png" className="cloud2" alt="cloud2" />
 
             <form className='search-form'>
                 <div className='search-wrap'>
@@ -35,17 +33,17 @@ export default function Main() {
                         Explore Plans
                     </label>
                     <br></br>
-                    <input onChange={handleFilter}type='text' required autoComplete="off" className='search-field' />
+                    <input onChange={handleFilter} type='text' required autoComplete="off" className='search-field' />
                     <br></br>
                     <button className='search-button'>search</button>
                 </div>
             </form>
 
             <div>
-                {displayPosts.map((post)=>{
-                    return(
-                    //<div>{post.title}</div>
-                    <div></div>
+                {displayPosts.map((post) => {
+                    return (
+                        //<div>{post.title}</div>
+                        <div></div>
                     )
                 })}
                 Place to show stuff from db
