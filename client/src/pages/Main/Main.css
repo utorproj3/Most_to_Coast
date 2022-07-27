@@ -71,3 +71,10 @@
     margin: 0 auto;
 }
 
+.text-left{
+    border: solid;
+    border-radius: 20px;
+    padding: 0px 15px 0px 15px;
+    margin: 10px;
+}
+
