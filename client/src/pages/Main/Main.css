@@ -65,3 +65,9 @@
     left: 0;
     opacity: 0.5;
 }
+
+.text-center {
+    width: 30%;
+    margin: 0 auto;
+}
+
