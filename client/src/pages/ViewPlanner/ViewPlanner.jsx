@@ -1,47 +1,88 @@
-import React from "react";
+import React, { useEffect, useState }from "react";
 import "./ViewPlanner.css";
+import {useNavigate} from "react-router-dom"
 
 export default function ViewPlanner() {
+
+    const navigate = useNavigate();
+
+    const [userPost, setUserPost] = useState(
+        [{
+            time : '9am', 
+            activity : ''
+        },
+            {time : '12pm',
+            activity : ''},
+            {time : '3pm',
+            activity : ''},
+    ] 
+    )
+
+    useEffect(()=>{
+
+        // here grab all of the data from the backend and set it to state
+        // setUserPost({posts: data from backend})
+    }, [userPost])
+
+    const handleFilter = (event) => {
+        // check out event.target.value and .filter method.
+        // youre going to need to filter and set event.target.value to filteredPosts
+        // filteredPosts is what youre going to want to display and map over down below
+        console.log(event.target.value)
+
+    }
+
+    function viewplan(){
+        setUserPost(
+            [{
+                time : '10am', 
+                activity : ''
+            },]
+        )
+    }
+
     return (
         <div className="viewplan" >
-            <div class="row">
-                <div class="col-12 col-md-8">
+            <div className="row">
+                <div className="col-12 col-md-8">
 
-                    <div class='parent'>
+                    <div className='parent'>
                         <div className="plan-title">Plan Title</div>
 
-                        <div className="plan-nickname">Plan Nickname</div>
+                        <button onClick={function(){
+                            navigate("/Planner")
+                        }} className="plan-nickname">Edit Plan</button>
                     </div>
 
                 </div>
                 
-                <div class="col-6 col-md-4">
+                <div className="col-6 col-md-4">
                     <div className="plan-details">Plan Details</div>
                 </div>
             </div>
         
 
-            <div class="row">
-                <div class="col-6 col-md-2">
-                    <div class="vstack gap-3">
+            <div className="row">
+                <div className="col-6 col-md-2">
+                    <div className="vstack gap-3">
                         <br></br>
-                        <div className="user-plans">First Plan</div>
+                        <button onClick={viewplan} className="user-plans">First Plan</button>
                         <br></br>
-                        <div class="user-plans">Second PLan</div>
+                        <div className="user-plans">Second PLan</div>
                         <br></br>
-                        <div class="user-plans">Third plan</div>
+                        <div className="user-plans">Third plan</div>
                         <br></br>
-                        <div class="user-plans">Fourth plan</div>
+                        <div className="user-plans">Fourth plan</div>
                         <br></br>
-                        <div class="user-plans">Fifth plan</div>
+                        <div className="user-plans">Fifth plan</div>
                         <br></br>
-                        <div class="user-plans">Sixth plan</div>
+                        <div className="user-plans">Sixth plan</div>
                         <br></br>
                         
                     </div>
                 </div>
 
-                <div class="col-6 col-md-3">
+                <div className="col-6 col-md-3">
 
                 <br></br>
 
@@ -52,47 +93,26 @@ export default function ViewPlanner() {
 
                 <br></br>
 
-                <div class="col-6 col-md-7">
-                    <table class="table">
+                <div className="col-6 col-md-7">
+                    <table className="table">
                         <thead>
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Day 1</th>
                             <th scope="col">Day 2</th>
                             <th scope="col">Day 3</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <th scope="row">9 am</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">12 pm</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3 pm</th>
-                            <td>Activityy</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">7 pm</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">11 pm</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
+                            {
+                                userPost.map(element => {
+                                    return <tr key={element.time}>                    
+                                    <th scope="row">{element.time}</th>
+                                    <td>Activity</td>
+                                    <td>Activity</td>
+                                    <td>Activity</td>
+                                    </tr>
+                                })
+                            }
                             
                         </tbody>
                     </table>
@@ -100,17 +120,17 @@ export default function ViewPlanner() {
             </div>
 
 
-            <div class="row">
-                <div class="col-12">
-                    <div class='grandparent'>
+            <div className="row">
+                <div className="col-12">
+                    <div className='grandparent'>
 
-                        <div class='plan-title'>Plan Created by:  user123</div>
+                        <div className='plan-title'>Plan Created by:  user123</div>
 
-                        <div class='plan-nickname'>
-                            <div class="vote roundrect">
-                                <div class="increment up"></div>
-                                <div class="increment down"></div>
-                                <div class="count">Template for Likes : 105 Likes</div>
+                        <div className='plan-nickname'>
+                            <div className="vote roundrect">
+                                <div className="increment up"></div>
+                                <div className="increment down"></div>
+                                <div className="count">Template for Likes : 105 Likes</div>
                             </div>
                         </div>
 
