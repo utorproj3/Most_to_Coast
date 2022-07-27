@@ -59,10 +59,11 @@ export default function Main() {
                     <button type='button' className='search-button' onClick={()=>getPlans({variables:{username: findUser}})}>search</button>
                 </div>
             </form>
-            <div>
+            <div className="container-fluid">
+            <div className='text-center'>
                 {allTravelPlansData?allTravelPlansData.map((allUserData)=>{
                     return(
-                    <div>
+                    <div className = "text-left">
                     <h2>{allUserData.planTitle}</h2>
                     <p>{allUserData.descriptionText}</p>
                     <p>{allUserData.destination}</p>
@@ -71,10 +72,10 @@ export default function Main() {
                 }): ('No Data yet')
             }
             </div>
-            <div>
+            <div className='text-center'>
                 {userData?userData.searchPlansByUser.myPlans.map((plans)=>{
                     return(
-                    <div>
+                    <div className = "text-left">
                     <h2>{plans.planTitle}</h2>
                     <p>{plans.descriptionText}</p>
                     <p>{plans.destination}</p>
@@ -82,6 +83,7 @@ export default function Main() {
                     )
                 }): ('No Data yet')
             }
+            </div>
             </div>
         </div>
     )
