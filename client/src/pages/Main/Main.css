@@ -69,6 +69,8 @@
 .text-center {
     width: 30%;
     margin: 0 auto;
+    overflow: hidden;
+    height: 500px;
 }
 
 .text-left{
@@ -76,5 +78,9 @@
     border-radius: 20px;
     padding: 0px 15px 0px 15px;
     margin: 10px;
+}
+
+.text-center:hover {
+    overflow-y: scroll;
 }
 
