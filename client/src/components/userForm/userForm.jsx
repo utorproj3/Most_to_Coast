@@ -6,23 +6,28 @@ const UserForm = () => {
   // TODO read bootstrap docs for responsiveness
   // TODO you can have different states each value keep going
 
-  const [userName, setUserName] = useState("");
-  const [aboutMe, setAboutMe] = useState("");
+  const [userName, setUserName] = useState("username");
+  const [aboutMe, setAboutMe] = useState("aboutme");
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
+  const [cancelForm, setCancelForm] = useState(false);
+  const [changes, setChanges] = useState(false);
 
+  // cancel edits
   const [editMe, setEditMe] = useState(false);
+  console.log(changes, "CHANGES", editMe, "EDITME");
 
   const handleNameChange = (e) => {
     e.preventDefault();
 
-    var userInput = e.target.value.trim();
-    console.log(userInput);
-    console.log(userInput.length);
-    if (userInput.length !== 0) {
-      setUserName(userInput);
+    var userNameInput = e.target.value.trim();
+
+    if (userNameInput.length !== 0) {
+      if (changes === true) {
+        setUserName(userNameInput);
+      }
     } else {
-      setUserName("");
-      console.log("Please enter a username:!");
+      setUserName(userName);
+      console.log("Please enter a valid username:!");
       alert("Please enter a username");
     }
   };
@@ -30,12 +35,16 @@ const UserForm = () => {
     e.preventDefault();
 
     var descpInput = e.target.value.trim();
-    console.log(descpInput);
-    console.log(descpInput.length);
+
     if (descpInput.length !== 0) {
-      setAboutMe(descpInput);
+      if (changes === true) {
+        console.log(aboutMe, "CHANGING TO ", descpInput);
+        setAboutMe(descpInput);
+      } else {
+        setAboutMe(aboutMe);
+      }
     } else {
-      setAboutMe("");
+      setAboutMe(aboutMe);
       console.log("Please enter a description");
       alert("Please enter a description");
     }
@@ -43,12 +52,24 @@ const UserForm = () => {
   const handleAvatarChange = (e) => {
     e.preventDefault();
     var imgInput = e.target.value;
-    setAvatarPic(imgInput);
+    console.log(imgInput);
+    if (changes === true) {
+      setAvatarPic(imgInput);
+    } else {
+    }
   };
-  const handleEditSubmit = (e) => {
+  const handleEditCancelSubmit = (e) => {
+    e.preventDefault();
+    setCancelForm(true);
+
+    setEditMe(!editMe);
+  };
+
+  const handleFormChanges = (e) => {
     e.preventDefault();
     // set to opposite of edit Value
-    console.log(editMe);
+    setChanges(true);
+
     setEditMe(!editMe);
   };
 
@@ -82,7 +103,6 @@ const UserForm = () => {
                       <label>
                         Username:
                         <input
-                          value={userName}
                           onChange={handleNameChange}
                           placeholder="Username"
                           id="username"
@@ -95,29 +115,31 @@ const UserForm = () => {
                       <label className="labelAboutme">
                         About:
                         <textarea
-                          value={aboutMe}
                           onChange={handleDescriptionChange}
                           placeholder="About me.."
                           id="about-me"
                           rows={5}
                           cols={30}
                           required
-                        >
-                          Hobbies, Activities, Personality..
-                        </textarea>
+                        ></textarea>
                       </label>
                     </div>
                   </div>
                 </div>
                 <div className="flex-btn">
                   <button
-                    type="reset"
+                    type="button"
                     className="reset-btn"
-                    onClick={handleEditSubmit}
+                    onClick={handleEditCancelSubmit}
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="submit-btn">
+
+                  <button
+                    type="button"
+                    className="submit-btn"
+                    onClick={handleFormChanges}
+                  >
                     Submit
                   </button>
                 </div>
@@ -143,16 +165,11 @@ const UserForm = () => {
                     <div>
                       <div className="username">
                         <h1>Username:</h1>
-                        <span className="user-input">USERNAMEHERE</span>
+                        <span className="user-input">{userName}</span>
                       </div>
                       <div className="aboutme">
                         <h1>About:</h1>
-                        <span className="user-input text-wrap">
-                          "Sed ut perspiciatis unde omnis iste natus error sit
-                          voluptatem accusantium doloremque laudantium, totam
-                          rem aperiam, eaque ipsa quae ab illo inventore
-                          veritatis et quasi architectod"
-                        </span>
+                        <span className="user-input text-wrap">{aboutMe}</span>
                       </div>
                     </div>
                   </div>
@@ -161,7 +178,7 @@ const UserForm = () => {
                     <button
                       type="submit"
                       className="edit-btn"
-                      onClick={handleEditSubmit}
+                      onClick={handleEditCancelSubmit}
                     >
                       Edit
                     </button>
