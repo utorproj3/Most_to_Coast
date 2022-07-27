@@ -19,20 +19,20 @@ const resolvers = {
     },
 
     allTravelPlans: async (parent, args, context) => {
-      // if (context.user) {
+      if (context.user) {
         return Plan.find();
-      // }
+      }
       
-      // throw new AuthenticationError('You need to be logged in');
+      throw new AuthenticationError('You need to be logged in');
     },
     
     searchPlansByUser: async (parent, { username }, context) => {
-      // if (context.user) {
+      if (context.user) {
         return User.findOne({ username })
           .populate('myPlans');
-      // }
+      }
       
-      // throw new AuthenticationError('You need to be logged in');
+      throw new AuthenticationError('You need to be logged in');
     },
     
     singlePlan: async (parent, { _id }, context) => {
