@@ -1,12 +1,12 @@
 import React from "react";
 import "./LoginSignUp.css";
-import { SignUpForm } from "../../components/SignUpForm"
-import { LoginForm } from "../../components/LoginForm"
+import SignUpForm from "../../components/SignUpForm";
+import LoginForm from "../../components/LoginForm";
 
 export default function LoginSignUp() {
 
     return (
-        <body>
+        <section>
 
             <img src="img/Most2Coast.png" className="logo" alt="airplanelogo" />
 
@@ -17,17 +17,16 @@ export default function LoginSignUp() {
 
                         <h1>Sign Up</h1>
                         <SignUpForm />
-
                     </div>
 
                     <div id='login'>
 
                         <h1>Welcome Back</h1>
-                        <LoginForm />
+                        {/* <LoginForm /> */}
 
                     </div>
                 </div>
             </div>
-        </body>
+        </section>
     )
 }

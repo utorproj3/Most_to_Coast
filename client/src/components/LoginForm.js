@@ -1,14 +1,17 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_USER } from "../../utils/mutations";
+import { LOGIN_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+
 export default function LoginForm() {
     const navigate = useNavigate()
     const [loginUser, { error: loginError }] = useMutation(LOGIN_USER);
-    const [loginData, setLoginData] = useState({ email: "", password: "" });
+    const [loginState, setLoginState] = useState({ email: "", password: "" });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setLoginData({ ...LoginData, [name]: value });
+        setLoginState({ ...loginState, [name]: value });
     };
 
     const handleSubmit = async (event) => {
@@ -24,7 +27,7 @@ export default function LoginForm() {
         try {
             // execute loginUser mutation and get Auth data
             const { data } = await loginUser({
-                variables: { ...loginData }
+                variables: { ...loginState }
             });
 
             if (!data) {
@@ -33,10 +36,10 @@ export default function LoginForm() {
             Auth.login(data.loginUser.token); navigate("/main")
         } catch (err) {
             console.error(err);
-            setShowAlert(true);
+            // setShowAlert(true);
         }
 
-        setLoginData({
+        setLoginState({
             email: '',
             password: '',
         });
@@ -55,7 +58,7 @@ export default function LoginForm() {
                     name='email'
                     id='email'
                     required
-                    value={formState.email}
+                    value={loginState.email}
                     onChange={handleChange}
                     autocomplete="off" />
             </div>
@@ -68,7 +71,7 @@ export default function LoginForm() {
                     name="password"
                     required
                     //id=""
-                    value={LoginData.password}
+                    value={loginState.password}
                     autocomplete="off"
                     onChange={handleChange} />
             </div>

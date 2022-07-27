@@ -7,26 +7,6 @@ import { QUERY_PLAN_BY_USER } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 export default function ViewPlanner() {
-    const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
-        variables: { username: 'Garth_Lueilwitz' }
-    });
-
-    const plans = data?.searchPlansByUser.myPlans || {};
-    console.log(plans);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    // if (!user?.username) {
-    //     return (
-    //       <h4>
-    //         You need to be logged in to see this page. Please login or sign up from the navigation link!
-    //       </h4>
-    //     );
-    // }
-    
-
     const navigate = useNavigate();
 
     const [userPost, setUserPost] = useState(
@@ -46,6 +26,27 @@ export default function ViewPlanner() {
         // here grab all of the data from the backend and set it to state
         // setUserPost({posts: data from backend})
     }, [userPost])
+    
+    const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
+        variables: { username: 'Garth_Lueilwitz' }
+    });
+
+    const plans = data?.searchPlansByUser.myPlans;
+    console.log(plans);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    // if (!user?.username) {
+    //     return (
+    //       <h4>
+    //         You need to be logged in to see this page. Please login or sign up from the navigation link!
+    //       </h4>
+    //     );
+    // }
+    
+
 
     const handleFilter = (event) => {
         // check out event.target.value and .filter method.
