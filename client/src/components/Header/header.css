@@ -43,3 +43,20 @@ li a {
 li a:hover {
     opacity: 0.25;
 }
+
+.logout-button {
+    display: inline-block;
+    color: #3dc4f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.3s;
+    font-size: 2vw;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    border: none;
+    background: none;
+}
+
+.logout-button:hover {
+    opacity: 0.25;
+}
