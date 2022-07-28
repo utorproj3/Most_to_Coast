@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import { useQuery, useMutation } from "@apollo/client";
+
+import { ReactNotifications } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { Store } from "react-notifications-component";
+import "animate.css";
+
 // import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 
 import "./userForm.css";
@@ -53,12 +58,20 @@ const UserForm = () => {
     var userNameInput = e.target.value.trim();
 
     if (userNameInput.length !== 0) {
-      // else tell user to enter valid username
       setUserName(userNameInput);
     } else {
+      // else tell user to enter valid username
       setUserName(userName);
       console.log("Please enter a valid username:!");
-      alert("Please enter a username");
+      Store.addNotification({
+        title: "Invalid Username",
+        message: "Please enter a valid username",
+        type: "danger",
+        container: "top-right",
+        insert: "top",
+        dismiss: { duration: 3750 },
+      });
+      // alert("Please enter a username");
     }
   };
 
@@ -72,7 +85,14 @@ const UserForm = () => {
     } else {
       setAboutMe(aboutMe);
       console.log("Please enter a description");
-      alert("Please enter a description");
+      Store.addNotification({
+        title: "Invalid Description",
+        message: "Please enter a description about you",
+        type: "danger",
+        container: "top-right",
+        insert: "top",
+        dismiss: { duration: 3750 },
+      });
     }
   };
   const handleAvatarChange = async (e) => {
@@ -130,6 +150,7 @@ const UserForm = () => {
     <>
       {editMe ? (
         <div className="grid text-center d-flex justify-content-center">
+          <ReactNotifications />
           <div className="g-col-12">
             <div className="userForm mx-4">
               <div>
