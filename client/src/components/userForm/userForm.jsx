@@ -9,42 +9,36 @@ import { QUERY_ME } from "../../utils/queries";
 // import mutation
 import { EDIT_USER } from "../../utils/mutations";
 
-// TODO CONNECT ACCOUNT PAGE TO BACKEND!
-// TODO USE QUERIES + MUTATIONS
 const UserForm = () => {
   // import loading and error, data is userData from QUERY_ME
-  const { loading, error, data: userData } = useQuery(QUERY_ME);
-
+  const { loading, error, data: allUserData } = useQuery(QUERY_ME);
+  const UserData = allUserData?.me || [];
+  console.log(UserData, "this is the data");
+  var queryUserName = UserData.username;
+  var queryUserDescp = UserData.description;
+  const [userName, setUserName] = useState(queryUserName);
+  const [aboutMe, setAboutMe] = useState(queryUserDescp);
+  const [avatarPic, setAvatarPic] = useState(AvatarHolder);
+  const [editMe, setEditMe] = useState(false);
   // mutation use
   const [editUser] = useMutation(EDIT_USER);
 
-  const allUserData = userData?.me || [];
-  console.log(allUserData);
   // console.log("all of user data, received", allUserData);
-  var queryUserName = allUserData.username;
-  var queryUserDescp = allUserData.description;
+
   console.log("USERNAME AND DESCRIPTION:", queryUserName, queryUserDescp);
 
   // const [userName, setUserName] = useState(userData["me"].username);
   // const [aboutMe, setAboutMe] = useState(userData["me"].description);
 
   // loading username and description if data isn't received yet
-  const [userName, setUserName] = useState(
-    queryUserName || "loading username.."
-  );
-  const [aboutMe, setAboutMe] = useState(
-    queryUserDescp || "loading description.."
-  );
-  const [avatarPic, setAvatarPic] = useState(AvatarHolder);
-  const [editMe, setEditMe] = useState(false);
 
   // const [qUserName, setQUserName] = useState("loading username...");
 
   // use mutation to editUSER
 
   useEffect(() => {
-    if (userData) {
-      console.log(userData.me);
+    if (UserData) {
+      console.log(UserData.me);
       console.log("WE GOT DATA!");
     }
   }, []);
@@ -60,14 +54,6 @@ const UserForm = () => {
     var userNameInput = e.target.value.trim();
 
     if (userNameInput.length !== 0) {
-      try {
-        await editUser({
-          variables: { id: allUserData.username },
-        });
-      } catch (e) {
-        console.log("There was a problem with editing userName", e);
-      }
-
       setUserName(userNameInput);
 
       // else tell user to enter valid username
@@ -85,13 +71,7 @@ const UserForm = () => {
 
     if (descpInput.length !== 0) {
       console.log(aboutMe, "CHANGING TO ", descpInput);
-      try {
-        await editUser({
-          variables: { id: allUserData.description },
-        });
-      } catch (e) {
-        console.log("There was a problem with editing userName", e);
-      }
+
       setAboutMe(descpInput);
     } else {
       setAboutMe(aboutMe);
@@ -103,13 +83,6 @@ const UserForm = () => {
     e.preventDefault();
     var imgInput = e.target.value;
     console.log(imgInput);
-    try {
-      await editUser({
-        variables: { id: allUserData.iconUrl },
-      });
-    } catch (e) {
-      console.log("There was a problem with editing userName", e);
-    }
 
     setAvatarPic(imgInput);
   };
@@ -126,11 +99,24 @@ const UserForm = () => {
 
     setEditMe(!editMe);
   };
-  const handleFormChanges = (e) => {
+  const handleFormChanges = async (e) => {
     e.preventDefault();
     // set to opposite of edit Value
 
     setEditMe(!editMe);
+
+    // change database backend to user input
+    try {
+      await editUser({
+        variables: {
+          username: userName,
+          iconUrl: avatarPic,
+          description: aboutMe,
+        },
+      });
+    } catch (e) {
+      console.log("There was an error when pushing info to database", e);
+    }
   };
 
   // edit button clicked? show Form, else, DISPLAY-ONLY variables
