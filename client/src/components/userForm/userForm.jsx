@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 import "./userForm.css";
+
+// import querry ME
+import { QUERY_ME } from "../../utils/queries";
 
 // TODO CONNECT ACCOUNT PAGE TO BACKEND!
 // TODO USE QUERIES + MUTATIONS
 const UserForm = () => {
-  const [userName, setUserName] = useState("username");
-  const [aboutMe, setAboutMe] = useState("aboutme");
+  // import loading and error, data is userData from QUERY_ME
+  const { loading, error, data: userData } = useQuery(QUERY_ME);
+  console.log(userData);
+  console.log(userData["me"].username);
+  console.log(userData["me"].description);
+  // var queryDBUserName = userData["me"].username || "loadingusername";
+  const [userName, setUserName] = useState(userData["me"].username);
+  const [aboutMe, setAboutMe] = useState(userData["me"].description);
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
-
-  // cancel edits
   const [editMe, setEditMe] = useState(false);
+
+  const allUserData = userData?.me || [];
+
+  useEffect(() => {
+    if (userData) {
+      console.log(userData.me);
+    }
+  }, []);
+
+  if (loading) {
+    return <div>Loading Account...</div>;
+  }
+  if (error) return `Error!${error}`;
 
   const handleNameChange = (e) => {
     e.preventDefault();
@@ -60,7 +81,6 @@ const UserForm = () => {
 
     setEditMe(!editMe);
   };
-
   const handleFormChanges = (e) => {
     e.preventDefault();
     // set to opposite of edit Value
