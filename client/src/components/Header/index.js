@@ -31,7 +31,7 @@ const Header = () => {
             <NavLink to="/viewplanner">View Your Plans</NavLink>
           </li>
           <li>
-            <button type='click' onClick={handleLogout}>Logout</button>
+            <button type='click' className='logout-button' onClick={handleLogout}>Logout</button>
           </li>
         </ul>
       </div>

@@ -20,7 +20,8 @@ export default function ViewPlanner() {
             {time : '11pm',
             activity : ''},
         ] 
-    )
+    );
+    const [daysState, setDaysState] = useState([]);
 
     useEffect(()=>{
 
@@ -40,6 +41,7 @@ export default function ViewPlanner() {
     const plans = data?.searchPlansByUser.myPlans;
 
     console.log(plans);
+    console.log(daysState);
 
     const handleFilter = (event) => {
         // check out event.target.value and .filter method.
@@ -51,8 +53,13 @@ export default function ViewPlanner() {
 
     function viewPlan(plan){
         console.log(plan);
-        const days = plan.days;
-        console.log(days);
+        const daysData = [];
+        plan.days.map(day => (
+            daysData.push(`Day ${day.dayNumber}`)
+        ));
+        setDaysState(daysData);
+
+
         setUserPost(
             [{
                 time : '10am', 
@@ -86,7 +93,7 @@ export default function ViewPlanner() {
                 <div className="col-6 col-md-2">
                     <div className="vstack gap-3">
                         <br></br>
-                        {plans.map(plan => {
+                        {plans.length && plans.map(plan => {
                             return (
                                 <button 
                                     key={plan._id} 
@@ -115,21 +122,28 @@ export default function ViewPlanner() {
                     <table className="table">
                         <thead>
                             <tr>
-                            <th scope="col">Time</th>
-                            <th scope="col">Day 1</th>
-                            <th scope="col">Day 2</th>
-                            <th scope="col">Day 3</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Day 1</th>
+                                <th scope="col">Day 2</th>
+                                <th scope="col">Day 3</th>
+                                {/* <th scope='col'>Time</th>
+                                <th scope='row'>9:00am</th>
+                                <th scope='row'>10:00am</th>
+                                <th scope='row'>11:00am</th>
+                                <th scope='row'>12:00am</th> */}
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 userPost.map(element => {
-                                    return <tr key={element.time}>                    
-                                    <th scope="row">{element.time}</th>
-                                    <td>Activity</td>
-                                    <td>Activity</td>
-                                    <td>Activity</td>
+                                    return (
+                                    <tr key={element.time}>                    
+                                        <th scope="row">{element.time}</th>
+                                        <td>Activity</td>
+                                        <td>Activity</td>
+                                        <td>Activity</td>
                                     </tr>
+                                    )
                                 })
                             }
                             

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_ALL_USERS = gql`
   query allUsers {
@@ -15,17 +15,18 @@ export const QUERY_ALL_USERS = gql`
   }
 `;
 
+// todo USE THIS TO CONNECT TO ACCOUNT PAGE!
 export const QUERY_ME = gql`
-  query me{
+  query me {
     me {
+      _id
+      username
+      email
+      iconUrl
+      description
+      myPlans {
         _id
-        username
-        email
-        iconUrl
-        description
-        myPlans {
-          _id
-          planTitle
+        planTitle
       }
     }
   }
@@ -45,7 +46,7 @@ export const QUERY_ALL_PLANS = gql`
       endDate
     }
   }
-`
+`;
 
 export const QUERY_PLAN_BY_USER = gql`
   query PlansByUser($username: String!) {
@@ -78,7 +79,7 @@ export const QUERY_PLAN_BY_USER = gql`
       }
     }
   }
-`
+`;
 
 export const QUERY_PLAN_BY_ID = gql`
   query singlePlanById($id: ID!) {
@@ -104,4 +105,4 @@ export const QUERY_PLAN_BY_ID = gql`
       }
     }
   }
-`
+`;
