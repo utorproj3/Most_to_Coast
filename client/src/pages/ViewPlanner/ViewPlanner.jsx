@@ -9,8 +9,7 @@ export default function ViewPlanner() {
     const [userPost, setUserPost] = useState(
         [{
             time : '9am', 
-            activity : ''
-        },
+            activity : ''},
             {time : '12pm',
             activity : ''},
             {time : '3pm',
