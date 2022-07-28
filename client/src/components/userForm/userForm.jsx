@@ -3,18 +3,12 @@ import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 import "./userForm.css";
 
 const UserForm = () => {
-  // TODO read bootstrap docs for responsiveness
-  // TODO you can have different states each value keep going
-
   const [userName, setUserName] = useState("username");
   const [aboutMe, setAboutMe] = useState("aboutme");
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
-  const [cancelForm, setCancelForm] = useState(false);
-  const [changes, setChanges] = useState(false);
 
   // cancel edits
   const [editMe, setEditMe] = useState(false);
-  console.log(changes, "CHANGES", editMe, "EDITME");
 
   const handleNameChange = (e) => {
     e.preventDefault();
@@ -22,9 +16,8 @@ const UserForm = () => {
     var userNameInput = e.target.value.trim();
 
     if (userNameInput.length !== 0) {
-      if (changes === true) {
-        setUserName(userNameInput);
-      }
+      setUserName(userNameInput);
+      // else tell user to enter valid username
     } else {
       setUserName(userName);
       console.log("Please enter a valid username:!");
@@ -37,12 +30,8 @@ const UserForm = () => {
     var descpInput = e.target.value.trim();
 
     if (descpInput.length !== 0) {
-      if (changes === true) {
-        console.log(aboutMe, "CHANGING TO ", descpInput);
-        setAboutMe(descpInput);
-      } else {
-        setAboutMe(aboutMe);
-      }
+      console.log(aboutMe, "CHANGING TO ", descpInput);
+      setAboutMe(descpInput);
     } else {
       setAboutMe(aboutMe);
       console.log("Please enter a description");
@@ -53,14 +42,19 @@ const UserForm = () => {
     e.preventDefault();
     var imgInput = e.target.value;
     console.log(imgInput);
-    if (changes === true) {
-      setAvatarPic(imgInput);
-    } else {
-    }
+
+    setAvatarPic(imgInput);
   };
-  const handleEditCancelSubmit = (e) => {
+  const handleEditSubmit = (e) => {
     e.preventDefault();
-    setCancelForm(true);
+    setEditMe(!editMe);
+  };
+  const handleCancelSubmit = (e) => {
+    e.preventDefault();
+    //todo set everything back manually, change this when you change state too
+    setUserName("username");
+    setAboutMe("aboutme");
+    setAvatarPic(AvatarHolder);
 
     setEditMe(!editMe);
   };
@@ -68,7 +62,6 @@ const UserForm = () => {
   const handleFormChanges = (e) => {
     e.preventDefault();
     // set to opposite of edit Value
-    setChanges(true);
 
     setEditMe(!editMe);
   };
@@ -89,7 +82,6 @@ const UserForm = () => {
                       <label>
                         Choose an Avatar[URL]:
                         <input
-                          // TODO CHANGE FILE TO STRING, TO ALLOW FOR GOOGLE DOC/URL!
                           type="text"
                           id="avatar"
                           onChange={handleAvatarChange}
@@ -130,7 +122,7 @@ const UserForm = () => {
                   <button
                     type="button"
                     className="reset-btn"
-                    onClick={handleEditCancelSubmit}
+                    onClick={handleCancelSubmit}
                   >
                     Cancel
                   </button>
@@ -178,7 +170,7 @@ const UserForm = () => {
                     <button
                       type="submit"
                       className="edit-btn"
-                      onClick={handleEditCancelSubmit}
+                      onClick={handleEditSubmit}
                     >
                       Edit
                     </button>
