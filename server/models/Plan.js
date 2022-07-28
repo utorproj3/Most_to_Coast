@@ -33,17 +33,28 @@ const PlanSchema = new Schema(
 
     startDate: {
       type: Date,
+<<<<<<< HEAD
 
       required: "You need to provide the start Date of the trip",
       get: (timestamp) => dateFormat(timestamp),
+=======
+      // required: 'You need to provide the start Date of the trip',
+      get: timestamp => dateFormat(timestamp)
+>>>>>>> feature/connectUserForm
     },
 
     endDate: {
       type: Date,
+<<<<<<< HEAD
       required: "You need to provide the end date of the trip",
 
       get: (timestamp) => dateFormat(timestamp),
     },
+=======
+      // required: 'You need to provide the end date of the trip',
+      get: timestamp => dateFormat(timestamp)
+    }
+>>>>>>> feature/connectUserForm
   },
 
   {

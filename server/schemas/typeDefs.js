@@ -10,6 +10,7 @@ const typeDefs = gql`
     myPlans: [Plan]
   }
 
+<<<<<<< HEAD
   type Plan {
     _id: ID!
     username: String!
@@ -38,6 +39,27 @@ const typeDefs = gql`
     endDate: String!
     days: [Day]
   }
+=======
+    type Plan {
+        _id: ID
+        planTitle: String!
+        destination: [String!]
+        descriptionText: String!
+        startDate: String
+        endDate: String
+        days: [Day]
+    }
+
+    input PlanInput {
+        _id: ID
+        planTitle: String!
+        destination: [String!]
+        descriptionText: String!
+        startDate: String
+        endDate: String
+        days: [DayInput]
+    }
+>>>>>>> feature/connectUserForm
 
   input PlanInput {
     _id: ID

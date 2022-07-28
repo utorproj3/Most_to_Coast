@@ -30,7 +30,27 @@ const resolvers = {
 
     searchPlansByUser: async (parent, { username }, context) => {
       if (context.user) {
+<<<<<<< HEAD
         return User.findOne({ username }).populate("myPlans");
+=======
+        return User.findOne({ username })
+          .populate('myPlans');
+      }
+      
+      throw new AuthenticationError('You need to be logged in');
+    },
+    
+    singlePlan: async (parent, { _id }, context) => {
+      if (context.user) {
+        return Plan.findOne({ _id })
+          .populate({
+            path: 'days',
+            populate: {
+              path: 'activities',
+              model: 'Activity'
+            }
+          });
+>>>>>>> feature/connectUserForm
       }
 
       throw new AuthenticationError("Not logged in");

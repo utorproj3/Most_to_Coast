@@ -20,9 +20,22 @@
     vertical-align: middle;
     font-size: large;
     font-weight: 500;
+
 }
-.plan-nickname {
+
+.table {
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
+}
+
+button.plan-nickname {
+border-color: #3dc4f2;
+margin-left: 50px;    
+}
+
+.plan-likes {
     display: inline-block;
+    padding: 10px;
     padding-left: 20%;
     position: center;
     font-size: large;
@@ -31,7 +44,7 @@
 }
 
 .plan-details {
-
+    margin-left: 0px;   
     font-size: large;
     font-weight: 500;
     vertical-align: middle;
@@ -73,4 +86,8 @@ th {
     height: 30px;
 }
 
+.likes {
+    margin-left: 60px;   
+
+}
 
