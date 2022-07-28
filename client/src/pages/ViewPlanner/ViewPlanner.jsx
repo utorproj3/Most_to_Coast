@@ -1,11 +1,12 @@
 import React, { useEffect, useState }from "react";
 import "./ViewPlanner.css";
 import {useNavigate} from "react-router-dom"
+import { QUERY_PLAN_BY_USER } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+import Auth from '../../utils/auth';
 
 export default function ViewPlanner() {
-
     const navigate = useNavigate();
-
     const [userPost, setUserPost] = useState(
         [{
             time : '9am', 
@@ -18,7 +19,7 @@ export default function ViewPlanner() {
             activity : ''},
             {time : '11pm',
             activity : ''},
-    ] 
+        ] 
     )
 
     useEffect(()=>{
@@ -26,6 +27,19 @@ export default function ViewPlanner() {
         // here grab all of the data from the backend and set it to state
         // setUserPost({posts: data from backend})
     }, [userPost])
+
+    const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
+        // variables: { username: Auth.getProfile().data.username }
+        variables: { username: 'Garth_Lueilwitz' }
+    });
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    const plans = data?.searchPlansByUser.myPlans;
+
+    console.log(plans);
 
     const handleFilter = (event) => {
         // check out event.target.value and .filter method.
@@ -35,7 +49,10 @@ export default function ViewPlanner() {
 
     }
 
-    function viewplan(){
+    function viewPlan(plan){
+        console.log(plan);
+        const days = plan.days;
+        console.log(days);
         setUserPost(
             [{
                 time : '10am', 
@@ -69,13 +86,17 @@ export default function ViewPlanner() {
                 <div className="col-6 col-md-2">
                     <div className="vstack gap-3">
                         <br></br>
-                        <button onClick={viewplan} className="user-plans">First Plan</button>
-                        <button className="user-plans">Second PLan</button>
-                        <button className="user-plans">Third plan</button>
-                        <button className="user-plans">Fourth plan</button>
-                        <button className="user-plans">Fifth plan</button>
-                        <button className="user-plans">Sixth plan</button>
-                        
+                        {plans.map(plan => {
+                            return (
+                                <button 
+                                    key={plan._id} 
+                                    onClick={() => {viewPlan(plan)}} 
+                                    className="user-plans"
+                                >
+                                    {plan.planTitle}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 

@@ -62,7 +62,16 @@ export const QUERY_PLAN_BY_USER = gql`
         destination
         days {
           _id
-          # dayNumber
+          dayNumber
+          activities {
+            _id
+            name
+            place
+            startTime
+            endTime
+            description
+            picture
+          }
         }
         startDate
         endDate
