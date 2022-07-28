@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 // import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 
 import "./userForm.css";
@@ -18,12 +18,11 @@ const UserForm = () => {
   //  import loading and error, data is userData from QUERY_ME
 
   const { loading, error, data: allUserData } = useQuery(QUERY_ME);
-  // const [getUserData, { data: allUserData }] = useLazyQuery(QUERY_ME);
 
   const UserData = allUserData?.me || [];
 
-  const [userName, setUserName] = useState(UserData.username);
-  const [aboutMe, setAboutMe] = useState(UserData.description);
+  const [userName, setUserName] = useState("loading username");
+  const [aboutMe, setAboutMe] = useState("loading description");
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
   const [editMe, setEditMe] = useState(false);
 
@@ -31,7 +30,7 @@ const UserForm = () => {
   const [editUser, { editUserError }] = useMutation(EDIT_USER);
 
   useEffect(() => {
-    if (UserData) {
+    if (UserData && !editMe) {
       console.log("RECEIVED DATA", UserData);
     }
     console.table(UserData);
@@ -41,9 +40,6 @@ const UserForm = () => {
       UserData.iconUrl,
       UserData.description
     );
-    setUserName(UserData.username);
-    setAvatarPic(UserData.iconUrl);
-    setAboutMe(UserData.description);
   });
 
   if (loading) {
@@ -92,7 +88,6 @@ const UserForm = () => {
   };
   const handleCancelSubmit = (e) => {
     e.preventDefault();
-    //todo set everything back manually, change this when you change state too
     setUserName("username");
     setAboutMe("aboutme");
     setAvatarPic(AvatarHolder);
@@ -102,8 +97,6 @@ const UserForm = () => {
   const handleFormChanges = async (e) => {
     e.preventDefault();
     // set to opposite of edit Value
-
-    // console.log("SUBMITTING TO BACKEND,", userName, avatarPic, aboutMe);
 
     try {
       await editUser({
@@ -129,19 +122,6 @@ const UserForm = () => {
       description: aboutMe,
     };
     console.log("SUBMITTING TO BACKEND,", userInformation);
-    try {
-      await editUser({
-        variables: {
-          input: {
-            userName,
-            avatarPic,
-            aboutMe,
-          },
-        },
-      });
-    } catch (e) {
-      console.log("There was an error when pushing info to database", e);
-    }
   };
 
   // edit button clicked? show Form, else, DISPLAY-ONLY variables

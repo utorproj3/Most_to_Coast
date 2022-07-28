@@ -26,6 +26,7 @@
 .avatar-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-size: 30px;
   padding: 5px;
 }
@@ -33,6 +34,7 @@
 img {
   height: 20rem;
   border-radius: 20px;
+  width: 30rem;
 }
 #avatarPicture {
   border: 2.5px solid teal;
@@ -89,6 +91,5 @@ img {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
-  margin: 0 auto;
+  display: none;
 }
