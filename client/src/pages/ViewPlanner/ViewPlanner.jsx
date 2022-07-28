@@ -84,7 +84,7 @@ export default function ViewPlanner() {
 
                 <br></br>
 
-                    <textarea id="story" name="story" rows="11" cols="45">
+                    <textarea id="story" name="story" rows="11" cols="60">
                                     Description...
                     </textarea>
                 </div>
@@ -118,6 +118,7 @@ export default function ViewPlanner() {
                 </div>
             </div>
 
+            <br></br>
 
             <div className="row">
                 <div className="col-12">
@@ -129,7 +130,7 @@ export default function ViewPlanner() {
                             <div className="vote roundrect">
                                 <div className="increment up"></div>
                                 <div className="increment down"></div>
-                                <div className="count">This Travel Plan has been liked by  : 105 Travel Addicts</div>
+                                <button className="likes">This Travel Plan has been liked by  : 105 Travel Addicts</button>
                             </div>
                         </div>
 
