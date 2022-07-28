@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 // import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 
 import "./userForm.css";
@@ -18,6 +18,7 @@ const UserForm = () => {
   //  import loading and error, data is userData from QUERY_ME
 
   const { loading, error, data: allUserData } = useQuery(QUERY_ME);
+  // const [getUserData, { data: allUserData }] = useLazyQuery(QUERY_ME);
 
   const UserData = allUserData?.me || [];
 
@@ -29,22 +30,21 @@ const UserForm = () => {
   // mutation use
   const [editUser, { editUserError }] = useMutation(EDIT_USER);
 
-  // console.log("all of user data, received", allUserData);
-
-  // const [userName, setUserName] = useState(userData["me"].username);
-  // const [aboutMe, setAboutMe] = useState(userData["me"].description);
-
-  // loading username and description if data isn't received yet
-
-  // const [qUserName, setQUserName] = useState("loading username...");
-
-  // use mutation to editUSER
-
   useEffect(() => {
     if (UserData) {
-      console.log(UserData.username, UserData.description);
+      console.log("RECEIVED DATA", UserData);
     }
-  }, []);
+    console.table(UserData);
+    console.log(
+      "LOGGING INFOO",
+      UserData.username,
+      UserData.iconUrl,
+      UserData.description
+    );
+    setUserName(UserData.username);
+    setAvatarPic(UserData.iconUrl);
+    setAboutMe(UserData.description);
+  });
 
   if (loading) {
     return <div>Loading Account...</div>;
@@ -116,7 +116,7 @@ const UserForm = () => {
         },
       });
     } catch (e) {
-      console.error(e);
+      console.error("There was an error when pushing info to database", e);
     }
 
     setEditMe(!editMe);

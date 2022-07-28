@@ -87,3 +87,8 @@ img {
   width: 400px;
   border-radius: 15px;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+  margin: 0 auto;
+}
