@@ -16,7 +16,7 @@ export const QUERY_ALL_USERS = gql`
   }
 `;
 
-// todo USE THIS TO CONNECT TO ACCOUNT PAGE!
+
 export const QUERY_ME = gql`
   query me {
     me {

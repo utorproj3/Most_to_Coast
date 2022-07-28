@@ -20,17 +20,11 @@ export default function Main() {
         if (allUserData) {
             console.log(allUserData.allTravelPlans);
         }
-        // here grab all of the data from the backend and set it to state
-        // setUserPost({posts: data from backend})
     }, [])
 
     if (loading) {
         return <div>Loading...</div>;
     }
-
-    // const handleFilter = () => {
-    //     userData(findUser);
-    // }
 
     const handleChange = (event) => {
         setFindUser(event.target.value);
