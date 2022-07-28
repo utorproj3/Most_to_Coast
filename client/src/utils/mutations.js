@@ -24,7 +24,7 @@ export const ADD_USER = gql`
   }
 `;
 
-// TODO use this to connect to ACCOUNT PAGE
+
 
 export const EDIT_USER = gql`
   mutation editUser($input: UserInput) {

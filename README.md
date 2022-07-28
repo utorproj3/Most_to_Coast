@@ -1,64 +1,80 @@
 # Most_to_Coast
 
-Models && Associations Relationship:
+## Description: 
+This app will reduce travel planning time. Creating a time schedule for the trip would be a little troublesome to some people and sometimes have no clue where one should go and how they should plan. This app will be the solution to those problems.
+
+## Heroku Deployment: 
+https://peaceful-journey-57215.herokuapp.com/main
+
+## Product Pitch:
+
+
+## Description:
+* This program is designed to perform CRUD (Create, Read, Update, Delete) operations from a non-relational database on a front-end Travel Plan sharing Website.
+* Backend: The back-end of this project was completed using Node.js, express server, Mongo database, npm Mongoose and tested in a backend environment (Apollo Server).
+* Frontend: This front-end of this project was completed using React, css, bootstrap rendered with graphQL requests.
+
+## Built By:
+* JavaScript
+* Node.js
+* express.js
+* npm (dotenv)
+* Path 
+* React & react router
+* MongoDB (Mongoose)
+* Apollo Server (express)
+* GQL
+* Apollo Client
+* JWT
+* Nodemon & concurrently & react router dom
+
+
+## Built-Logic:
+1. Write out DB Models
+2. Relations of DB models (Associations) drawn in an ER Diagram.
+3. Work on queries and mutations on backend && add JWT Authentications.
+4. Once routes on backend are tested (graphql), go to frontend JS files (react) and connect queries && mutations from backend to the frontend elements using react states.
+5. styling (stylesheets).
+
+## Models && Associations Diagram (ER Diagram): 
+-This is a middleman diagram to help us to convert our business idea into a database schema.
 ![image](https://user-images.githubusercontent.com/95199209/180568848-c4412f55-cbd9-4585-b01e-46a1eff988b9.png)
 
-Backend Instructions, Sample Queries and Mutations (Without Seeds):
-1. `cd` into the server directory from root, and enter `npm run watch` in the terminal window.
-![image](https://user-images.githubusercontent.com/95199209/180853021-4ccbb44d-eae1-4e3c-a259-eacbac089194.png)
+## How to Install:
+* Open Gitbash/terminal, navigate towards your project location from your root by using "cd ./ project location"
+* Choose a clone option from the "Most_to_Coast" repository (either HTTPS or SSH should work)
+* In Gitbash, type "git clone HTTPS or SSH"
+* Once the clone is successful, navigate to the root directory of this repo.
+* Enter `npm run install` into the terminal to install all dependencies linked in the `package.json` file (both client and server sides).
 
-2. Navigate towards http://localhost:3001/graphql in the Chrome browser, create a User by entering the username, email and password.
-![image](https://user-images.githubusercontent.com/95199209/180853710-c0af7bd1-1ec8-4f84-87ff-ed6f66b8b2e9.png)
+## How to initialize the database:
+1. Create a `.env` file in your `server` directory, as the seeding the database requires connection to your database.
 
-3. Login using the email and password.
-![image](https://user-images.githubusercontent.com/95199209/180853866-135f03f9-96ec-4686-b22d-21df52e7f464.png)
+2. (optional) In terminal, enter `npm run seed` to feed the database with test seeds.
 
-4. Once logged in, you can start the CRUD operations by queries (GET) and mutations (POST, DELETE, PUT).
+## How to Use:
+1. Cloud: Open the deployed heroku link, the project is hosted on the cloud and ready to be used!
 
-#### GET
-- To get your own information: 
-![image](https://user-images.githubusercontent.com/95199209/180854317-c86806e4-38c8-4df5-a223-4cd8836d837f.png)
+2. Local Machine: type `npm run develop` in your gitbash shell and the react app would be automatically opened.
 
-- To get all signed-up users:
-![image](https://user-images.githubusercontent.com/95199209/180854472-2e55f50e-020e-4df4-9066-71ba5617ad07.png)
+## Sample Screenshots of the application:
+1. Login/Signup
+![image](https://user-images.githubusercontent.com/95199209/181646073-ddaabd32-119b-4e9f-8c62-489c7e830019.png)
 
-- To get all travel plans in the system:
-![image](https://user-images.githubusercontent.com/95199209/180856698-38c92830-36f6-4569-8571-75d28e1a9c6f.png)
+2. Home/Main
+![image](https://user-images.githubusercontent.com/95199209/181645996-be1587b8-b396-4ea3-9845-2fbdcb684a73.png)
 
-- To get travel plans belong to a user:
-![image](https://user-images.githubusercontent.com/95199209/180856798-2c7b3729-d933-4b80-91b6-c55651414e62.png)
+3. Account
+![image](https://user-images.githubusercontent.com/95199209/181646246-55d198d2-67ee-4d69-87bc-b6c2c28643e5.png)
 
-- To get travel plan by `_id`:
-![image](https://user-images.githubusercontent.com/95199209/180857148-286ddae4-8791-4170-881a-83e0f75fe8b1.png)
+4. View Planner
+![image](https://user-images.githubusercontent.com/95199209/181646222-38de6a55-ad98-4c9e-af15-bcd7ab761f4d.png)
 
-#### POST:
-- To create a travel plan: 
-![image](https://user-images.githubusercontent.com/95199209/180875505-4a626501-5cb5-4544-9756-a17aae015332.png)
+5. Create a Plan
+![image](https://user-images.githubusercontent.com/95199209/181646204-f2d3ff9b-edeb-4a16-bf51-137fca4a8b5b.png)
 
-- To create days in the travel plan, copy the `_id` of the travel plan, and input into the variables:
-![image](https://user-images.githubusercontent.com/95199209/180855990-98a0016b-db0b-460c-9253-15e68bd39654.png)
+---
 
-- To create an activity in the day, copy the `_id` of both the travel plan and day, then input into variables:
-![image](https://user-images.githubusercontent.com/95199209/180856572-a64e7083-c42e-4ea3-9426-6868b6a42276.png)
-
-#### PUT:
-- To update a travel plan, copy the `_id` of the travel plan and input into the variables:
-![image](https://user-images.githubusercontent.com/95199209/180858138-25247beb-2dc8-40fa-900a-5a8c2436f033.png)
-
-- To update an activity, copy the `_id` of the activity and input into the variables:
-![image](https://user-images.githubusercontent.com/95199209/180859841-65b712dc-ad4d-48fb-a611-f5307ed43e27.png)
-
-- To update a user, copy the `_id` of the user and input into the variables:
-![image](https://user-images.githubusercontent.com/95199209/180872904-ceb407d4-c115-40aa-9525-91f085c890ca.png)
-
-#### DELETE:
-- To remove an activity, enter the `id` of the activity and the `dayId` that activity belongs to.
-![image](https://user-images.githubusercontent.com/95199209/180860910-231a8ef1-b11b-4431-b3a6-dc054f0fb1b8.png)
-
-- To remove a day, enter the `id` of the Day, and the `planId` that day belong to.
-![image](https://user-images.githubusercontent.com/95199209/180861448-26683d31-a2f4-4b5b-bf40-1647833b1194.png)
-
-- To remove a plan, enter the `id` of the Plan.
-![image](https://user-images.githubusercontent.com/95199209/180862195-adbf805a-a63e-49f8-9902-d6b751158849.png)
+### ©️2022  Kevin (Haoyu) Fang, Mikel Balazic, Tyler Flynn, Yuri Ichikawa, Jin Yang, Yomi Odusi, George Saad
 
 

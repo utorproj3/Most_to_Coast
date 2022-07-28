@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-// add activity to the time schedule
 const activitySchema = new Schema (
     {
         name: {

@@ -23,7 +23,7 @@ export default function Planner() {
       await addPlan({
         variables: { input: { destination, planTitle, descriptionText } }
       });
-      //clear form value
+
       setDestination('');
       setPlanTitle('');
       setDescriptionText('');
