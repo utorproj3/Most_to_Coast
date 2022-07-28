@@ -29,7 +29,17 @@ const resolvers = {
     searchPlansByUser: async (parent, { username }, context) => {
       if (context.user) {
         return User.findOne({ username })
-          .populate('myPlans');
+          .populate({
+            path: 'myPlans',
+            populate: {
+              path: 'days',
+              model: 'Day',
+              populate: {
+                path: 'activities',
+                model: 'Activity'
+              }
+            }
+          });
       }
       
       throw new AuthenticationError('You need to be logged in');
@@ -38,7 +48,6 @@ const resolvers = {
     singlePlan: async (parent, { _id }, context) => {
       if (context.user) {
         return Plan.findOne({ _id })
-          // .populate('days')
           .populate({
             path: 'days',
             populate: {

@@ -94,32 +94,40 @@ db.once('open', async () => {
     ].join();
     
     // if the faker returns true, set the start time as 'am' or else 'pm'
-    let startHour;
+    // let startHour;
     let amOrPm;
-    if (faker.datatype.boolean()) {
-      // 9:00am to 11:59am
-      startHour = Math.floor(Math.random() * (11 + 1 - 9)) + 9;
+    // if (faker.datatype.boolean()) {
+    //   // 9:00am to 11:59am
+    //   startHour = Math.floor(Math.random() * (11 + 1 - 9)) + 9;
+    //   amOrPm = 'am';
+    // } else {
+    //   // 12:00pm to 11:59pm
+    //   startHour = Math.floor(Math.random() * 12) + 1;
+    //   amOrPm = 'pm';
+    // }
+
+    const time = [9, 12, 3, 6];
+    const startHour = time[Math.floor(Math.random() * time.length)];
+    if (startHour === 9) {
       amOrPm = 'am';
     } else {
-      // 12:00pm to 11:59pm
-      startHour = Math.floor(Math.random() * 12) + 1;
       amOrPm = 'pm';
     }
 
     // add leading 0 to 1 digit number
-    const minute = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+    // const minute = String(Math.floor(Math.random() * 60)).padStart(2, '0');
     
     const startTime = [
       startHour, 
-      ':', 
-      minute,
+      // ':', 
+      // minute,
       amOrPm
     ].join('');
     // add 1 hour to the startTime as endTime
     const endTime = [
       startHour + 1,
-      ':', 
-      minute,
+      // ':', 
+      // minute,
       amOrPm
     ].join('');
     

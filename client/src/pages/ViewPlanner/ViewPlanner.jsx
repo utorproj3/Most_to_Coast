@@ -1,116 +1,205 @@
-import React from "react";
+import React, { useEffect, useState }from "react";
 import "./ViewPlanner.css";
+import {useNavigate} from "react-router-dom"
+import { QUERY_PLAN_BY_USER } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+import Auth from '../../utils/auth';
 
 export default function ViewPlanner() {
+    const navigate = useNavigate();
+    // const [timeState, setTimePost] = useState(
+    //     [{
+    //         time : '9am', 
+    //         activity : ''},
+    //         {time : '12pm',
+    //         activity : ''},
+    //         {time : '3pm',
+    //         activity : ''},
+    //         {time : '7pm',
+    //         activity : ''},
+    //         {time : '11pm',
+    //         activity : ''},
+    //     ] 
+    // );
+    const [planState, setPlanState] = useState({});
+    const time = ['9am', '12pm', '3pm', '6pm'];
+
+    // useEffect(()=>{
+
+    //     // here grab all of the data from the backend and set it to state
+    //     // setUserPost({posts: data from backend})
+    // }, [planState])
+
+    const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
+        variables: { username: Auth.getProfile().data.username }
+        //  variables: { username: 'Taylor.Jaskolski' }
+    });
+
+    if (!Auth.loggedIn()) {
+        navigate("/");
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    const plans = data?.searchPlansByUser.myPlans;
+
+    console.log(plans);
+    console.log(planState[0]);
+
+    const handleFilter = (event) => {
+        // check out event.target.value and .filter method.
+        // youre going to need to filter and set event.target.value to filteredPosts
+        // filteredPosts is what youre going to want to display and map over down below
+        console.log(event.target.value)
+
+    }
+
+    function viewPlan(plan){
+        console.log(plan);
+        const daysData = plan.days.map(day => {
+            const activities = day.activities.map(activity => {
+                return {
+                    id: activity._id,
+                    time: activity.startTime,
+                    name: activity.name
+                };
+            });
+
+            return {
+                id: day._id,
+                dayNumber: `Day ${day.dayNumber}`,
+                activities: activities
+            };
+        });
+        
+        setPlanState({
+            id: plan._id,
+            title: plan.planTitle,
+            description: plan.descriptionText,
+            days: daysData
+        });
+
+        // setUserPost(
+        //     [{
+        //         time : '10am', 
+        //         activity : ''
+        //     },]
+        // )
+    }
+
+    // const days = planState[1]
+    console.log(planState.days && planState.days[0]);
+
     return (
         <div className="viewplan" >
-            <div class="row">
-                <div class="col-12 col-md-8">
+            <div className="row">
+                <div className="col-12 col-md-8">
 
-                    <div class='parent'>
-                        <div className="plan-title">Plan Title</div>
+                    <div className='parent'>
+                        <div className="plan-title">My Plans</div>
 
-                        <div className="plan-nickname">Plan Nickname</div>
+                        <button className="plan-nickname" onClick={function(){
+                            navigate("/Planner")
+                        }} >Edit Plan</button>
                     </div>
 
                 </div>
                 
-                <div class="col-6 col-md-4">
+                <div className="col-6 col-md-4">
                     <div className="plan-details">Plan Details</div>
                 </div>
             </div>
         
 
-            <div class="row">
-                <div class="col-6 col-md-2">
-                    <div class="vstack gap-3">
+            <div className="row">
+                <div className="col-6 col-md-2">
+                    <div className="vstack gap-3">
                         <br></br>
-                        <div className="user-plans">First Plan</div>
-                        <br></br>
-                        <div class="user-plans">Second PLan</div>
-                        <br></br>
-                        <div class="user-plans">Third plan</div>
-                        <br></br>
-                        <div class="user-plans">Fourth plan</div>
-                        <br></br>
-                        <div class="user-plans">Fifth plan</div>
-                        <br></br>
-                        <div class="user-plans">Sixth plan</div>
-                        <br></br>
-                        
+                        {plans.length && plans.map(plan => {
+                            return (
+                                <button 
+                                    key={plan._id} 
+                                    onClick={() => {viewPlan(plan)}} 
+                                    className="user-plans"
+                                >
+                                    {plan.planTitle}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
-                <div class="col-6 col-md-3">
-
-                <br></br>
-
-                    <textarea id="story" name="story" rows="11" cols="45">
-                                    Description...
+                <div className="col-6 col-md-3">
+                    <br></br>
+                    <textarea 
+                        id="story" 
+                        name="story" 
+                        rows="11" 
+                        cols="60"
+                        value={planState.description ? (planState.description) : 'Description...'}
+                    >
                     </textarea>
                 </div>
-
                 <br></br>
-
-                <div class="col-6 col-md-7">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Day 1</th>
-                            <th scope="col">Day 2</th>
-                            <th scope="col">Day 3</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <th scope="row">9 am</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">12 pm</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3 pm</th>
-                            <td>Activityy</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">7 pm</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">11 pm</th>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            <td>Activity</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
+                <div className="col-6 d-flex justify-content-between">
+                    {planState.days && planState.days.map(day => {
+                        return (
+                            <div key={day.id}>
+                                <p>{day.dayNumber}</p>
+                                {day.activities && day.activities.map(activity => {
+                                    return <p>{activity.time}: {activity.name}</p>;
+                                })}
+                                {/* <table className="table">
+                                    <thead>
+                                        <tr>
+                                            {day.dayNumber === 'Day 1' && 
+                                                <th scope="col">Time</th>
+                                            }
+                                            <th scope="col">{day.dayNumber}</th>
+                                            {/* <th scope='row'>9:00am</th>
+                                            <th scope='row'>10:00am</th>
+                                            <th scope='row'>11:00am</th>
+                                            <th scope='row'>12:00am</th> */}
+                                        {/* </tr>
+                                    </thead>
+                                    <tbody>
+                                        {time.map(element => {
+                                            return (
+                                                <tr key={element}>                    
+                                                    {day.dayNumber === 'Day 1' && 
+                                                        <th scope="row">{element}</th>
+                                                    }
+                                                    {day.activities && day.activities.map(activity => {
+                                                        if (activity.time === element) {
+                                                            return <td>{activity.name}</td>;
+                                                        }
+                                                    })}
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table> */}
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
 
+            <br></br>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class='grandparent'>
+            <div className="row">
+                <div className="col-12">
+                    <div className='grandparent'>
 
-                        <div class='plan-title'>Plan Created by:  user123</div>
+                        <div className='plan-title'>Plan Created by:  user123</div>
 
-                        <div class='plan-nickname'>
-                            <div class="vote roundrect">
-                                <div class="increment up"></div>
-                                <div class="increment down"></div>
-                                <div class="count">Template for Likes : 105 Likes</div>
+                        <div className='plan-likes'>
+                            <div className="vote roundrect">
+                                <div className="increment up"></div>
+                                <div className="increment down"></div>
+                                <button className="likes">This Travel Plan has been liked by  : 105 Travel Addicts</button>
                             </div>
                         </div>
 

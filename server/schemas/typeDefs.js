@@ -5,6 +5,7 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
+        password: String
         iconUrl: String
         description: String
         myPlans: [Plan]
@@ -15,8 +16,8 @@ const typeDefs = gql`
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        startDate: String!
-        endDate: String!
+        startDate: String
+        endDate: String
         days: [Day]
     }
 
@@ -25,8 +26,8 @@ const typeDefs = gql`
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        startDate: String!
-        endDate: String!
+        startDate: String
+        endDate: String
         days: [DayInput]
     }
 

@@ -1,123 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 import "./Planner.css";
-
+import { CREATE_PLAN } from "../../utils/mutations";
 export default function Planner() {
-    return (
-        <div className="container-fluid">
-            <div className='planner'>
-                <div className='planner-form'>
-                    <div className='planner-tab-content'>
-                        <div className='row'>
-                            <div className="col-lg-12">
-
-                                <h1>Create Plan</h1>
-
-                                <form action="/" method="post">
-
-                                    <div className="row">
-                                        <div className="col-4">
-                                            <label>
-                                                Plan Title<span className='req'></span>
-                                            </label>
-                                        </div>
-                                        <div className="col-4">
-                                            <label>
-                                                Plan Nickname<span className='req'></span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-4">
-                                            <input type='text' required autocomplete="off" className='input-field' />
-                                        </div>
-                                        <div className="col-4">
-                                            <input type='text' required autocomplete="off" className='input-field' />
-                                        </div>
-
-                                        <div className="col-4">
-                                            <button className="btn btn-outline">Private</button>
-                                            <button className="btn">Public</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 text-center">
-                            <div className="row col-6">
-                                <label>
-                                    Plan Description...<span className='req'></span>
-                                </label>
-                            </div>
-                            <div className="row">
-                                <div className="col-6">
-                                    <textarea type='text' required autocomplete="off" className=''></textarea>
-                                </div>
-                                <div className="col-6">
-                                    <table className='planner-table'>
-                                        <tr className='top-row'>
-                                            <th>Time</th>
-                                            <th>Day 1</th>
-                                            <th>Day 2</th>
-                                            <th>Day 3</th>
-                                            <th>Add Day</th>
-                                        </tr>
-                                        <tr className='row1'>
-                                            <td>9am</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                            <td className='add-day'>Add Day</td>
-                                        </tr>
-                                        <tr className='row2'>
-                                            <td>12pm</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                        </tr>
-                                        <tr className='row3'>
-                                            <td>3pm</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                        </tr>
-                                        <tr className='row4'>
-                                            <td>7pm</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                        </tr>
-                                        <tr className='row-5'>
-                                            <td>11pm</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                            <td>Add Item</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="container">
-                <div className="col-lg-12 text-center">
-                    <div className="row">
-                        <div className='col-6'>
-                            <button className='planner-button'>Upload Image</button>
-                        </div>
-                        <div className='col-6'>
-                            <button type='submit' className='planner-button'>Save Plan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  const [destination, setDestination] = useState("");
+  const [planTitle, setPlanTitle] = useState("");
+  const [descriptionText, setDescriptionText] = useState("");
+  const handleTitleChange = (event) => {
+    setPlanTitle(event.target.value);
+  };
+  const handleDestinationChange = (event) => {
+    setDestination(event.target.value);
+  };
+  const handleDescriptionChange = (event) => {
+    setDescriptionText(event.target.value);
+  };
+  const [addPlan, { error }] = useMutation(CREATE_PLAN);
+  const handleFormSubmit = async (event) => {
+    console.log(`planTitle${planTitle}`, `destination${destination}`, `description ${descriptionText}`);
+    event.preventDefault();
+    try {
+      await addPlan({
+        variables: { input: { destination, planTitle, descriptionText } }
+      });
+      //clear form value
+      setDestination('');
+      setPlanTitle('');
+      setDescriptionText('');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  return (
+    <div className="plannerContainer">
+      <h1 className="title">Create A Plan!</h1>
+      <form name="tripInfo" action="/" method="post" onSubmit={handleFormSubmit}>
+        <div align="center">
+          <label className="subtitle" htmlFor="planTitle">
+            Plan Title<span className="req"></span>
+          </label>
+          <input
+            type="text"
+            required
+            autoComplete="off"
+            className="col-4 input-field"
+            id="planTitle"
+            name="planTitle"
+            onChange={handleTitleChange}
+            value={planTitle}
+          />
         </div>
-    )
+        <div align="center">
+          <label className="subtitle" htmlFor="planDestination">
+            Plan Destination<span className="req"></span>
+          </label>
+          <input
+            type="text"
+            required
+            autoComplete="off"
+            className="col-4 input-field"
+            id="planDestination"
+            name="planDestination"
+            onChange={handleDestinationChange}
+            value={destination}
+          />
+        </div>
+        <div align="center">
+          <textarea
+            type="text"
+            required
+            autoComplete="off"
+            className="textarea"
+            onChange={handleDescriptionChange}
+            value={descriptionText}
+            placeholder="Plan Description"
+          ></textarea>
+        </div>
+        <div align="center">
+          <button
+            className="col-4 btn"
+            id="submitBtn"
+            htmlFor="tripInfo"
+            type="submit"
+          >
+            Submit Trip
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }

@@ -47,6 +47,7 @@
 }
 
 .cloud1 {
+    z-index: -1;
     position: absolute;
     display: flex;
     height: auto;
@@ -65,3 +66,35 @@
     left: 0;
     opacity: 0.5;
 }
+
+.text-center {
+    width: 30%;
+    margin: 0 auto;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 500px;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
+}
+
+.text-left{
+    border: solid;
+    border-radius: 20px;
+    padding: 0px 15px 0px 15px;
+    margin: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    margin: 0 auto;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3dc4f2;
+    border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #87cee6;
+}
+

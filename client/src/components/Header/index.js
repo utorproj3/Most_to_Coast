@@ -1,11 +1,18 @@
 import React from 'react';
 import "./header.css";
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 
-// import Auth from '../../utils/auth';
+import Auth from '../../utils/auth';
 
 const Header = () => {
+  const handleLogout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+
+    return <Navigate to={'/'} />;
+  }
+
   return (
     <header>
 
@@ -22,6 +29,9 @@ const Header = () => {
           </li>
           <li>
             <NavLink to="/viewplanner">View Your Plans</NavLink>
+          </li>
+          <li>
+            <button type='click' className='logout-button' onClick={handleLogout}>Logout</button>
           </li>
         </ul>
       </div>
