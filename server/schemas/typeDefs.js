@@ -15,8 +15,8 @@ const typeDefs = gql`
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        startDate: String!
-        endDate: String!
+        startDate: String
+        endDate: String
         days: [Day]
     }
 
@@ -25,8 +25,8 @@ const typeDefs = gql`
         planTitle: String!
         destination: [String!]
         descriptionText: String!
-        startDate: String!
-        endDate: String!
+        startDate: String
+        endDate: String
         days: [DayInput]
     }
 
