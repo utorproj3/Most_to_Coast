@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+
 import { useQuery, useMutation } from "@apollo/client";
-import AvatarHolder from "../../assets/img/Profile-holder.jpg";
+// import AvatarHolder from "../../assets/img/Profile-holder.jpg";
+
 import "./userForm.css";
 
 // import querry ME
@@ -9,23 +11,25 @@ import { QUERY_ME } from "../../utils/queries";
 // import mutation
 import { EDIT_USER } from "../../utils/mutations";
 
+var AvatarHolder =
+  "https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar-600x600.png";
+
 const UserForm = () => {
-  // import loading and error, data is userData from QUERY_ME
+  //  import loading and error, data is userData from QUERY_ME
+
   const { loading, error, data: allUserData } = useQuery(QUERY_ME);
+
   const UserData = allUserData?.me || [];
-  console.log(UserData, "this is the data");
-  var queryUserName = UserData.username;
-  var queryUserDescp = UserData.description;
-  const [userName, setUserName] = useState(queryUserName);
-  const [aboutMe, setAboutMe] = useState(queryUserDescp);
+
+  const [userName, setUserName] = useState(UserData.username);
+  const [aboutMe, setAboutMe] = useState(UserData.description);
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
   const [editMe, setEditMe] = useState(false);
+
   // mutation use
-  const [editUser] = useMutation(EDIT_USER);
+  const [editUser, { editUserError }] = useMutation(EDIT_USER);
 
   // console.log("all of user data, received", allUserData);
-
-  console.log("USERNAME AND DESCRIPTION:", queryUserName, queryUserDescp);
 
   // const [userName, setUserName] = useState(userData["me"].username);
   // const [aboutMe, setAboutMe] = useState(userData["me"].description);
@@ -38,8 +42,7 @@ const UserForm = () => {
 
   useEffect(() => {
     if (UserData) {
-      console.log(UserData.me);
-      console.log("WE GOT DATA!");
+      console.log(UserData.username, UserData.description);
     }
   }, []);
 
@@ -54,9 +57,8 @@ const UserForm = () => {
     var userNameInput = e.target.value.trim();
 
     if (userNameInput.length !== 0) {
-      setUserName(userNameInput);
-
       // else tell user to enter valid username
+      setUserName(userNameInput);
     } else {
       setUserName(userName);
       console.log("Please enter a valid username:!");
@@ -70,8 +72,6 @@ const UserForm = () => {
     var descpInput = e.target.value.trim();
 
     if (descpInput.length !== 0) {
-      console.log(aboutMe, "CHANGING TO ", descpInput);
-
       setAboutMe(descpInput);
     } else {
       setAboutMe(aboutMe);
@@ -82,10 +82,10 @@ const UserForm = () => {
   const handleAvatarChange = async (e) => {
     e.preventDefault();
     var imgInput = e.target.value;
-    console.log(imgInput);
 
     setAvatarPic(imgInput);
   };
+
   const handleEditSubmit = (e) => {
     e.preventDefault();
     setEditMe(!editMe);
@@ -103,15 +103,40 @@ const UserForm = () => {
     e.preventDefault();
     // set to opposite of edit Value
 
-    setEditMe(!editMe);
+    // console.log("SUBMITTING TO BACKEND,", userName, avatarPic, aboutMe);
 
-    // change database backend to user input
     try {
       await editUser({
         variables: {
-          username: userName,
-          iconUrl: avatarPic,
-          description: aboutMe,
+          input: {
+            username: userName,
+            iconUrl: avatarPic,
+            description: aboutMe,
+          },
+        },
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    setEditMe(!editMe);
+
+    // change database backend to user input
+
+    var userInformation = {
+      username: userName,
+      ironURL: avatarPic,
+      description: aboutMe,
+    };
+    console.log("SUBMITTING TO BACKEND,", userInformation);
+    try {
+      await editUser({
+        variables: {
+          input: {
+            userName,
+            avatarPic,
+            aboutMe,
+          },
         },
       });
     } catch (e) {
