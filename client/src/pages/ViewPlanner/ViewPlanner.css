@@ -1,0 +1,93 @@
+/* .parent {
+
+    text-align: left;
+    
+} */
+
+/* html, body {
+    margin: 0;
+    height: 100%;
+} */
+.viewplan {
+    width: 100%;
+    height: 100%;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
+}
+.plan-title {
+    display: inline-block;
+    padding-left: 5%;
+    vertical-align: middle;
+    font-size: large;
+    font-weight: 500;
+
+}
+
+.table {
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    color: #3dc4f2;
+}
+
+button.plan-nickname {
+border-color: #3dc4f2;
+margin-left: 50px;    
+}
+
+.plan-likes {
+    display: inline-block;
+    padding: 10px;
+    padding-left: 20%;
+    position: center;
+    font-size: large;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.plan-details {
+    margin-left: 0px;   
+    font-size: large;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.user-plans {
+    padding-left: 20%;
+    border-style: solid;
+    border-color:#3dc4f2 ;
+}
+
+.row1 {
+    padding-left: 40%;
+}
+.planner {
+    width: 100%;
+    height: 100%;
+}
+
+.planner-inputs {
+    display: flex;
+}
+
+.planner-table {
+    width:70%;
+    border-style: solid;
+    border-color:#3dc4f2 ;
+
+}
+
+td,
+th {
+    border: 1px solid white;
+    text-align: left;
+    padding: 8px;
+}
+
+.planner-button {
+    height: 30px;
+}
+
+.likes {
+    margin-left: 60px;   
+
+}
+

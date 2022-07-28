@@ -1,99 +1,108 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const QUERY_THOUGHTS = gql`
-  query thoughts($username: String) {
-    thoughts(username: $username) {
-      _id
-      thoughtText
-      createdAt
-      username
-      reactionCount
-      reactions {
-        _id
-        createdAt
-        username
-        reactionBody
-      }
-    }
-  }
-`;
-
-export const QUERY_THOUGHT = gql`
-  query thought($id: ID!) {
-    thought(_id: $id) {
-      _id
-      thoughtText
-      createdAt
-      username
-      reactionCount
-      reactions {
-        _id
-        createdAt
-        username
-        reactionBody
-      }
-    }
-  }
-`;
-
-export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+export const QUERY_ALL_USERS = gql`
+  query allUsers {
+    allUsers {
       _id
       username
       email
-      friendCount
-      friends {
+      password
+      iconUrl
+      description
+      myPlans {
         _id
-        username
-      }
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-        reactionCount
       }
     }
   }
 `;
 
+// todo USE THIS TO CONNECT TO ACCOUNT PAGE!
 export const QUERY_ME = gql`
-  {
+  query me {
     me {
       _id
       username
       email
-      friendCount
-      thoughts {
+      iconUrl
+      description
+      myPlans {
         _id
-        thoughtText
-        createdAt
-        reactionCount
-        reactions {
-          _id
-          createdAt
-          reactionBody
-          username
-        }
-      }
-      friends {
-        _id
-        username
+        planTitle
       }
     }
   }
 `;
 
-export const QUERY_ME_BASIC = gql`
-  {
-    me {
+export const QUERY_ALL_PLANS = gql`
+  query allTravelPlans {
+    allTravelPlans {
+      _id
+      planTitle
+      descriptionText
+      destination
+      days {
+        _id
+      }
+      startDate
+      endDate
+    }
+  }
+`;
+
+export const QUERY_PLAN_BY_USER = gql`
+  query PlansByUser($username: String!) {
+    searchPlansByUser(username: $username) {
       _id
       username
       email
-      friendCount
-      friends {
+      iconUrl
+      description
+      myPlans {
         _id
-        username
+        planTitle
+        descriptionText
+        destination
+        days {
+          _id
+          dayNumber
+          activities {
+            _id
+            name
+            place
+            startTime
+            endTime
+            description
+            picture
+          }
+        }
+        startDate
+        endDate
+      }
+    }
+  }
+`;
+
+export const QUERY_PLAN_BY_ID = gql`
+  query singlePlanById($id: ID!) {
+    singlePlan(_id: $id) {
+      _id
+      planTitle
+      descriptionText
+      destination
+      startDate
+      endDate
+      days {
+        _id
+        dayNumber
+        activities {
+          _id
+          name
+          place
+          startTime
+          endTime
+          description
+          picture
+        }
       }
     }
   }

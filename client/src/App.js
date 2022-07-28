@@ -9,14 +9,11 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Header from './components/Header';
-import Footer from './components/Footer';
-
-import Home from './pages/Home';
-import Login from './pages/Login';
-import NoMatch from './pages/NoMatch';
-import SingleThought from './pages/SingleThought';
-import Profile from './pages/Profile';
-import Signup from './pages/Signup';
+import LoginSignUp from './pages/LoginSignUp/LoginSignUp';
+import Main from './pages/Main/Main';
+import Account from './pages/Account/Account';
+import Planner from './pages/Planner/Planner';
+import View from './pages/ViewPlanner/ViewPlanner';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -38,41 +35,33 @@ const client = new ApolloClient({
 });
 
 function App() {
+  let path = window.location.href.split("/")[3];
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
-          <div className="container">
-            <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
-              />
-              <Route 
-                path="/login" 
-                element={<Login />} 
-              />
-              <Route 
-                path="/signup" 
-                element={<Signup />} 
-              />
-              <Route 
-                path="/profile" 
-                element={<Profile />} 
-              />
-              <Route 
-                path="/thought/:id" 
-                element={<SingleThought />} 
-              />
-              <Route 
-                path="*" 
-                element={<NoMatch />} 
-              />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
+      <Router >
+        {path === '' ? '' : (<Header />)}
+        <Routes>
+          <Route
+            path="/"
+            element={<LoginSignUp />}
+          />
+          <Route
+            path="/main"
+            element={<Main />}
+          />
+          <Route
+            path="/account"
+            element={<Account />}
+          />
+          <Route
+            path="/planner"
+            element={<Planner />}
+          />
+          <Route
+            path="/viewplanner"
+            element={<View />}
+          />
+        </Routes>
       </Router>
     </ApolloProvider>
   );
