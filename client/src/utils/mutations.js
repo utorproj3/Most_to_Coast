@@ -24,6 +24,16 @@ export const ADD_USER = gql`
   }
 `;
 
+export const EDIT_USER = gql`
+  mutation editUser($input: UserInput){
+    editUser (input: $input) {
+        username
+        iconUrl
+        description
+    }
+  }
+`
+
 export const CREATE_PLAN= gql`
   mutation createPlan($input: PlanInput) {
     createPlan(input: $input) {
