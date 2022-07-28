@@ -2,21 +2,21 @@ import React, { useEffect, useState }from "react";
 import "./ViewPlanner.css";
 import {useNavigate} from "react-router-dom"
 
-import { QUERY_PLAN_BY_USER } from '../../utils/queries';
-// import Auth from '../../utils/auth';
-import { useQuery } from '@apollo/client';
-
 export default function ViewPlanner() {
+
     const navigate = useNavigate();
 
     const [userPost, setUserPost] = useState(
         [{
             time : '9am', 
-            activity : ''
-        },
+            activity : ''},
             {time : '12pm',
             activity : ''},
             {time : '3pm',
+            activity : ''},
+            {time : '7pm',
+            activity : ''},
+            {time : '11pm',
             activity : ''},
     ] 
     )
@@ -26,27 +26,6 @@ export default function ViewPlanner() {
         // here grab all of the data from the backend and set it to state
         // setUserPost({posts: data from backend})
     }, [userPost])
-    
-    const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
-        variables: { username: 'Garth_Lueilwitz' }
-    });
-
-    const plans = data?.searchPlansByUser.myPlans;
-    console.log(plans);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    // if (!user?.username) {
-    //     return (
-    //       <h4>
-    //         You need to be logged in to see this page. Please login or sign up from the navigation link!
-    //       </h4>
-    //     );
-    // }
-    
-
 
     const handleFilter = (event) => {
         // check out event.target.value and .filter method.
@@ -71,11 +50,11 @@ export default function ViewPlanner() {
                 <div className="col-12 col-md-8">
 
                     <div className='parent'>
-                        <div className="plan-title">Plan Title</div>
+                        <div className="plan-title">My Plans</div>
 
-                        <button onClick={function(){
+                        <button className="plan-nickname" onClick={function(){
                             navigate("/Planner")
-                        }} className="plan-nickname">Edit Plan</button>
+                        }} >Edit Plan</button>
                     </div>
 
                 </div>
@@ -91,25 +70,12 @@ export default function ViewPlanner() {
                     <div className="vstack gap-3">
                         <br></br>
                         <button onClick={viewplan} className="user-plans">First Plan</button>
-                        <br></br>
-                        <div className="user-plans">Second PLan</div>
-                        <br></br>
-                        <div className="user-plans">Third plan</div>
-                        <br></br>
-                        <div className="user-plans">Fourth plan</div>
-                        <br></br>
-                        <div className="user-plans">Fifth plan</div>
-                        <br></br>
-                        <div className="user-plans">Sixth plan</div>
-                        <br></br>
-                        {plans.map(plan => {
-                            return (
-                                <div key={plan._id}>
-                                    <div className="user-plans">{plan.planTitle}</div>
-                                    <br></br>
-                                </div>
-                            );
-                        })};
+                        <button className="user-plans">Second PLan</button>
+                        <button className="user-plans">Third plan</button>
+                        <button className="user-plans">Fourth plan</button>
+                        <button className="user-plans">Fifth plan</button>
+                        <button className="user-plans">Sixth plan</button>
+                        
                     </div>
                 </div>
 
@@ -117,7 +83,7 @@ export default function ViewPlanner() {
 
                 <br></br>
 
-                    <textarea id="story" name="story" rows="11" cols="45">
+                    <textarea id="story" name="story" rows="11" cols="60">
                                     Description...
                     </textarea>
                 </div>
@@ -128,7 +94,8 @@ export default function ViewPlanner() {
                     <table className="table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Day 1</th>
                             <th scope="col">Day 2</th>
                             <th scope="col">Day 3</th>
                             </tr>
@@ -150,6 +117,7 @@ export default function ViewPlanner() {
                 </div>
             </div>
 
+            <br></br>
 
             <div className="row">
                 <div className="col-12">
@@ -157,11 +125,11 @@ export default function ViewPlanner() {
 
                         <div className='plan-title'>Plan Created by:  user123</div>
 
-                        <div className='plan-nickname'>
+                        <div className='plan-likes'>
                             <div className="vote roundrect">
                                 <div className="increment up"></div>
                                 <div className="increment down"></div>
-                                <div className="count">Template for Likes : 105 Likes</div>
+                                <button className="likes">This Travel Plan has been liked by  : 105 Travel Addicts</button>
                             </div>
                         </div>
 
