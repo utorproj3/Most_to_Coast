@@ -1,6 +1,6 @@
 .userForm {
+  background-color: #f1fbff;
   min-width: min-content;
-  width: 400px;
   max-width: 850px;
   height: 600px;
   margin: 5% 10%;
@@ -8,39 +8,27 @@
   background-color: #81d5f1;
   border-radius: 20px;
 }
-
 .form-container {
   display: flex;
-  flex-direction: column;
   padding: 5px;
 }
-
 .form-card {
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 100%;
+  width: 85%;
   padding: 5px;
 }
-
 .avatar-container {
   display: flex;
   flex-direction: column;
   font-size: 30px;
   padding: 5px;
 }
-
 img {
   height: 20rem;
   border-radius: 20px;
 }
-#avatarPicture {
-  border: 2.5px solid teal;
-}
-.input-container {
-  border: 3px solid;
-}
-
 .user-input {
   font-size: 20px;
 }
@@ -53,7 +41,6 @@ img {
   max-width: 825px;
   margin: 20px 25px;
 }
-
 .submit-btn {
   display: flex;
   align-items: center;
@@ -79,11 +66,61 @@ img {
   border-radius: 20px;
 }
 .edit-btn {
-  padding: 4%;
+  padding: 2.5%;
   background-color: #3ca2c4;
+  margin-left: 60%;
+  min-width: 35%;
   font-weight: 700;
   font-size: 20px;
-  margin-top: 80px;
-  width: 400px;
   border-radius: 15px;
 }
+
+/*? responsive design */
+/* //  START HERE */
+/* @media screen and (max-width: 500px) {
+  .userForm {
+    background-color: #f1fbff;
+    border: 3px solid teal;
+    border-radius: 20px;
+    margin: 0 5px;
+    font-size: 1rem;
+  }
+  .form-container {
+    display: flex;
+  }
+  .avatar-container {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin: -10px;
+  }
+  img {
+    height: 20rem;
+    width: 15rem;
+    border-radius: 20px;
+  }
+  .user-form {
+    font-size: 30px;
+    display: flex;
+    margin-left: 15px;
+    flex-direction: column;
+  }
+  .labelAboutme {
+    display: flex;
+  }
+  ::placeholder {
+    color: rgb(154, 176, 184);
+    font-size: 2rem;
+  }
+  .username > h1,
+  .aboutme > h1 {
+    display: flex;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 5px 40px;
+  }
+/* @media screen and (min-width: 1000px) {
+  .user-form {
+    padding: 2.5%;
+  }
+} */

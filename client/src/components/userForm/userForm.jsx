@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 import "./userForm.css";
-
-// TODO CONNECT ACCOUNT PAGE TO BACKEND!
-// TODO USE QUERIES + MUTATIONS
 const UserForm = () => {
   const [userName, setUserName] = useState("username");
   const [aboutMe, setAboutMe] = useState("aboutme");
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
-
   // cancel edits
   const [editMe, setEditMe] = useState(false);
-
   const handleNameChange = (e) => {
     e.preventDefault();
-
     var userNameInput = e.target.value.trim();
-
     if (userNameInput.length !== 0) {
       setUserName(userNameInput);
       // else tell user to enter valid username
@@ -28,9 +21,7 @@ const UserForm = () => {
   };
   const handleDescriptionChange = (e) => {
     e.preventDefault();
-
     var descpInput = e.target.value.trim();
-
     if (descpInput.length !== 0) {
       console.log(aboutMe, "CHANGING TO ", descpInput);
       setAboutMe(descpInput);
@@ -44,7 +35,6 @@ const UserForm = () => {
     e.preventDefault();
     var imgInput = e.target.value;
     console.log(imgInput);
-
     setAvatarPic(imgInput);
   };
   const handleEditSubmit = (e) => {
@@ -57,17 +47,13 @@ const UserForm = () => {
     setUserName("username");
     setAboutMe("aboutme");
     setAvatarPic(AvatarHolder);
-
     setEditMe(!editMe);
   };
-
   const handleFormChanges = (e) => {
     e.preventDefault();
     // set to opposite of edit Value
-
     setEditMe(!editMe);
   };
-
   // edit button clicked? show Form, else, DISPLAY-ONLY variables
   // can change username, description , and Icon URL/avatar!
   return (
@@ -80,7 +66,7 @@ const UserForm = () => {
                 <div className="form-card ">
                   <img src={avatarPic} alt="avatarPicture" id="avatarPicture" />
                   <div className="avatar-container">
-                    <div>
+                    <div className="input-container">
                       <label>
                         Choose an Avatar[URL]:
                         <input
@@ -92,8 +78,8 @@ const UserForm = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="input-container">
-                    <div className="label-input">
+                  <div>
+                    <div>
                       <label>
                         Username:
                         <input
@@ -105,7 +91,7 @@ const UserForm = () => {
                         />
                       </label>
                     </div>
-                    <div className="label-input">
+                    <div>
                       <label className="labelAboutme">
                         About:
                         <textarea
@@ -128,7 +114,6 @@ const UserForm = () => {
                   >
                     Cancel
                   </button>
-
                   <button
                     type="button"
                     className="submit-btn"
@@ -167,7 +152,6 @@ const UserForm = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="flex-btn">
                     <button
                       type="submit"
@@ -186,5 +170,4 @@ const UserForm = () => {
     </>
   );
 };
-
 export default UserForm;

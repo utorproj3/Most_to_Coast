@@ -1,75 +1,75 @@
-.container-fluid {
+.subtitle {
     font-family: 'Edu NSW ACT Foundation', cursive;
-    color: #3dc4f2;
+    color: #3DC4F2;
 }
-
-.container {
-    padding: 20px;
-}
-
-.planner {
-    width: 100%;
-    height: 100%;
-}
-
-.planner-inputs {
-    display: flex;
-}
-
-.planner-form {
+.title {
     text-align: center;
     margin: auto;
     width: 50%;
-}
-
-.planner-section-1 {
-    display: inline-block;
-}
-
-.panner-table {
-    width: 45%;
-    float: right;
-}
-
-td,
-th {
-    border: 1px solid white;
-    text-align: left;
-    padding: 8px;
-}
-
-.planner-button {
-    text-align: center;
-    background: none;
-    transition-duration: 0.5s;
-    color: #3dc4f2;
+    color: #3DC4F2;
     font-family: 'Edu NSW ACT Foundation', cursive;
-    font-size: 1.5vw;
-    border: none;
 }
 
-.planner-button:hover {
-    text-align: center;
-    background: none;
-    color: #90d8f4;
-    opacity: 0.5;
+#submitBtn {
+    background: #3498DB;
+    background-image: -webkit-linear-gradient(top, #3498DB, #2980B9);
+    background-image: -moz-linear-gradient(top, #3498DB, #2980B9);
+    background-image: -ms-linear-gradient(top, #3498DB, #2980B9);
+    background-image: -o-linear-gradient(top, #3498DB, #2980B9);
+    background-image: linear-gradient(to bottom, #3498DB, #2980B9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    color: white;
+    font-size: 20px;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
 }
-
-/* .btn-outline {
-    text-align: center;
-    background: none;
-    transition-duration: 0.5s;
-    color: #3dc4f2;
+#submitBtn:hover {
+    background: #3CB0FD;
+    text-decoration: none;
+}
+@media (max-width: 700px) {
+    .textarea {
+        font-size: 10px;
+        display: flex;
+    }
+}
+/*textarea*/
+.textarea {
+    width: 600px;
+    height: 36px;
+    border: 0px;
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 600;
     font-family: 'Edu NSW ACT Foundation', cursive;
-    font-size: 1.5vw;
-    border: none;
-    border-radius: 50%;
-    padding: 10px;
-} */
-
-/* .btn:focus {
     text-align: center;
-    background: none;
-    background-color: #3dc4f2;
-    color: #90d8f4;
-} */
+}
+@media (max-width: 700px) {
+    .textarea {
+        width: 300px;
+        display: flex;
+    }
+}
+.textarea {
+    box-shadow: 0 2px 10px 2px #999999;
+    border-radius: 30px;
+}
+.textarea:focus {
+    outline: none !important;
+    border: 1px solid blueviolet;
+    box-shadow: 0 0 10px #719ECE;
+}
+/*plannerContainer*/
+.plannerContainer {
+    width: 800px
+}
+.plannerContainer {
+    width: 50%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
