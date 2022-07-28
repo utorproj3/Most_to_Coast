@@ -5,6 +5,7 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
+        password: String
         iconUrl: String
         description: String
         myPlans: [Plan]

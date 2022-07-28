@@ -31,8 +31,8 @@ export default function ViewPlanner() {
     // }, [planState])
 
     const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
-        // variables: { username: Auth.getProfile().data.username }
-        variables: { username: 'Steve.Ruecker52' }
+        variables: { username: Auth.getProfile().data.username }
+        //  variables: { username: 'Taylor.Jaskolski' }
     });
 
     if (!Auth.loggedIn()) {

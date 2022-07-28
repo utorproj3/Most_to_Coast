@@ -6,6 +6,7 @@ export const QUERY_ALL_USERS = gql`
       _id
       username
       email
+      password
       iconUrl
       description
       myPlans {
