@@ -6,6 +6,8 @@ node_modules/
 .pnp.js
 package-lock.json
 
+
+.vscode
 # testing
 /coverage
 

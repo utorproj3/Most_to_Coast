@@ -1,30 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import AvatarHolder from "../../assets/img/Profile-holder.jpg";
 import "./userForm.css";
 
 // import querry ME
 import { QUERY_ME } from "../../utils/queries";
 
+// import mutation
+import { EDIT_USER } from "../../utils/mutations";
+
 // TODO CONNECT ACCOUNT PAGE TO BACKEND!
 // TODO USE QUERIES + MUTATIONS
 const UserForm = () => {
   // import loading and error, data is userData from QUERY_ME
   const { loading, error, data: userData } = useQuery(QUERY_ME);
-  console.log(userData);
-  console.log(userData["me"].username);
-  console.log(userData["me"].description);
-  // var queryDBUserName = userData["me"].username || "loadingusername";
-  const [userName, setUserName] = useState(userData["me"].username);
-  const [aboutMe, setAboutMe] = useState(userData["me"].description);
+
+  // mutation use
+  const [editUser] = useMutation(EDIT_USER);
+
+  const allUserData = userData?.me || [];
+  console.log(allUserData);
+  // console.log("all of user data, received", allUserData);
+  var queryUserName = allUserData.username;
+  var queryUserDescp = allUserData.description;
+  console.log("USERNAME AND DESCRIPTION:", queryUserName, queryUserDescp);
+
+  // const [userName, setUserName] = useState(userData["me"].username);
+  // const [aboutMe, setAboutMe] = useState(userData["me"].description);
+
+  // loading username and description if data isn't received yet
+  const [userName, setUserName] = useState(
+    queryUserName || "loading username.."
+  );
+  const [aboutMe, setAboutMe] = useState(
+    queryUserDescp || "loading description.."
+  );
   const [avatarPic, setAvatarPic] = useState(AvatarHolder);
   const [editMe, setEditMe] = useState(false);
 
-  const allUserData = userData?.me || [];
+  // const [qUserName, setQUserName] = useState("loading username...");
+
+  // use mutation to editUSER
 
   useEffect(() => {
     if (userData) {
       console.log(userData.me);
+      console.log("WE GOT DATA!");
     }
   }, []);
 
@@ -33,13 +54,22 @@ const UserForm = () => {
   }
   if (error) return `Error!${error}`;
 
-  const handleNameChange = (e) => {
+  const handleNameChange = async (e) => {
     e.preventDefault();
 
     var userNameInput = e.target.value.trim();
 
     if (userNameInput.length !== 0) {
+      try {
+        await editUser({
+          variables: { id: allUserData.username },
+        });
+      } catch (e) {
+        console.log("There was a problem with editing userName", e);
+      }
+
       setUserName(userNameInput);
+
       // else tell user to enter valid username
     } else {
       setUserName(userName);
@@ -47,13 +77,21 @@ const UserForm = () => {
       alert("Please enter a username");
     }
   };
-  const handleDescriptionChange = (e) => {
+
+  const handleDescriptionChange = async (e) => {
     e.preventDefault();
 
     var descpInput = e.target.value.trim();
 
     if (descpInput.length !== 0) {
       console.log(aboutMe, "CHANGING TO ", descpInput);
+      try {
+        await editUser({
+          variables: { id: allUserData.description },
+        });
+      } catch (e) {
+        console.log("There was a problem with editing userName", e);
+      }
       setAboutMe(descpInput);
     } else {
       setAboutMe(aboutMe);
@@ -61,10 +99,17 @@ const UserForm = () => {
       alert("Please enter a description");
     }
   };
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     e.preventDefault();
     var imgInput = e.target.value;
     console.log(imgInput);
+    try {
+      await editUser({
+        variables: { id: allUserData.iconUrl },
+      });
+    } catch (e) {
+      console.log("There was a problem with editing userName", e);
+    }
 
     setAvatarPic(imgInput);
   };
