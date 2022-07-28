@@ -7,32 +7,37 @@ import Auth from '../../utils/auth';
 
 export default function ViewPlanner() {
     const navigate = useNavigate();
-    const [userPost, setUserPost] = useState(
-        [{
-            time : '9am', 
-            activity : ''},
-            {time : '12pm',
-            activity : ''},
-            {time : '3pm',
-            activity : ''},
-            {time : '7pm',
-            activity : ''},
-            {time : '11pm',
-            activity : ''},
-        ] 
-    );
-    const [daysState, setDaysState] = useState([]);
+    // const [timeState, setTimePost] = useState(
+    //     [{
+    //         time : '9am', 
+    //         activity : ''},
+    //         {time : '12pm',
+    //         activity : ''},
+    //         {time : '3pm',
+    //         activity : ''},
+    //         {time : '7pm',
+    //         activity : ''},
+    //         {time : '11pm',
+    //         activity : ''},
+    //     ] 
+    // );
+    const [planState, setPlanState] = useState({});
+    const time = ['9am', '12pm', '3pm', '6pm'];
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        // here grab all of the data from the backend and set it to state
-        // setUserPost({posts: data from backend})
-    }, [userPost])
+    //     // here grab all of the data from the backend and set it to state
+    //     // setUserPost({posts: data from backend})
+    // }, [planState])
 
     const { loading, data } = useQuery(QUERY_PLAN_BY_USER, {
         // variables: { username: Auth.getProfile().data.username }
-        variables: { username: 'Garth_Lueilwitz' }
+        variables: { username: 'Steve.Ruecker52' }
     });
+
+    if (!Auth.loggedIn()) {
+        navigate("/");
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -41,7 +46,7 @@ export default function ViewPlanner() {
     const plans = data?.searchPlansByUser.myPlans;
 
     console.log(plans);
-    console.log(daysState);
+    console.log(planState[0]);
 
     const handleFilter = (event) => {
         // check out event.target.value and .filter method.
@@ -53,20 +58,39 @@ export default function ViewPlanner() {
 
     function viewPlan(plan){
         console.log(plan);
-        const daysData = [];
-        plan.days.map(day => (
-            daysData.push(`Day ${day.dayNumber}`)
-        ));
-        setDaysState(daysData);
+        const daysData = plan.days.map(day => {
+            const activities = day.activities.map(activity => {
+                return {
+                    id: activity._id,
+                    time: activity.startTime,
+                    name: activity.name
+                };
+            });
 
+            return {
+                id: day._id,
+                dayNumber: `Day ${day.dayNumber}`,
+                activities: activities
+            };
+        });
+        
+        setPlanState({
+            id: plan._id,
+            title: plan.planTitle,
+            description: plan.descriptionText,
+            days: daysData
+        });
 
-        setUserPost(
-            [{
-                time : '10am', 
-                activity : ''
-            },]
-        )
+        // setUserPost(
+        //     [{
+        //         time : '10am', 
+        //         activity : ''
+        //     },]
+        // )
     }
+
+    // const days = planState[1]
+    console.log(planState.days && planState.days[0]);
 
     return (
         <div className="viewplan" >
@@ -108,47 +132,58 @@ export default function ViewPlanner() {
                 </div>
 
                 <div className="col-6 col-md-3">
-
-                <br></br>
-
-                    <textarea id="story" name="story" rows="11" cols="60">
-                                    Description...
+                    <br></br>
+                    <textarea 
+                        id="story" 
+                        name="story" 
+                        rows="11" 
+                        cols="60"
+                        value={planState.description ? (planState.description) : 'Description...'}
+                    >
                     </textarea>
                 </div>
-
                 <br></br>
-
-                <div className="col-6 col-md-7">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Time</th>
-                                <th scope="col">Day 1</th>
-                                <th scope="col">Day 2</th>
-                                <th scope="col">Day 3</th>
-                                {/* <th scope='col'>Time</th>
-                                <th scope='row'>9:00am</th>
-                                <th scope='row'>10:00am</th>
-                                <th scope='row'>11:00am</th>
-                                <th scope='row'>12:00am</th> */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                userPost.map(element => {
-                                    return (
-                                    <tr key={element.time}>                    
-                                        <th scope="row">{element.time}</th>
-                                        <td>Activity</td>
-                                        <td>Activity</td>
-                                        <td>Activity</td>
-                                    </tr>
-                                    )
-                                })
-                            }
-                            
-                        </tbody>
-                    </table>
+                <div className="col-6 d-flex justify-content-between">
+                    {planState.days && planState.days.map(day => {
+                        return (
+                            <div key={day.id}>
+                                <p>{day.dayNumber}</p>
+                                {day.activities && day.activities.map(activity => {
+                                    return <p>{activity.time}: {activity.name}</p>;
+                                })}
+                                {/* <table className="table">
+                                    <thead>
+                                        <tr>
+                                            {day.dayNumber === 'Day 1' && 
+                                                <th scope="col">Time</th>
+                                            }
+                                            <th scope="col">{day.dayNumber}</th>
+                                            {/* <th scope='row'>9:00am</th>
+                                            <th scope='row'>10:00am</th>
+                                            <th scope='row'>11:00am</th>
+                                            <th scope='row'>12:00am</th> */}
+                                        {/* </tr>
+                                    </thead>
+                                    <tbody>
+                                        {time.map(element => {
+                                            return (
+                                                <tr key={element}>                    
+                                                    {day.dayNumber === 'Day 1' && 
+                                                        <th scope="row">{element}</th>
+                                                    }
+                                                    {day.activities && day.activities.map(activity => {
+                                                        if (activity.time === element) {
+                                                            return <td>{activity.name}</td>;
+                                                        }
+                                                    })}
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table> */}
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
 
