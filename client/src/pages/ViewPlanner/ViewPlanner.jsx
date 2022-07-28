@@ -15,6 +15,10 @@ export default function ViewPlanner() {
             activity : ''},
             {time : '3pm',
             activity : ''},
+            {time : '7pm',
+            activity : ''},
+            {time : '11pm',
+            activity : ''},
     ] 
     )
 
@@ -47,11 +51,11 @@ export default function ViewPlanner() {
                 <div className="col-12 col-md-8">
 
                     <div className='parent'>
-                        <div className="plan-title">Plan Title</div>
+                        <div className="plan-title">My Plans</div>
 
-                        <button onClick={function(){
+                        <button className="plan-nickname" onClick={function(){
                             navigate("/Planner")
-                        }} className="plan-nickname">Edit Plan</button>
+                        }} >Edit Plan</button>
                     </div>
 
                 </div>
@@ -67,17 +71,11 @@ export default function ViewPlanner() {
                     <div className="vstack gap-3">
                         <br></br>
                         <button onClick={viewplan} className="user-plans">First Plan</button>
-                        <br></br>
-                        <div className="user-plans">Second PLan</div>
-                        <br></br>
-                        <div className="user-plans">Third plan</div>
-                        <br></br>
-                        <div className="user-plans">Fourth plan</div>
-                        <br></br>
-                        <div className="user-plans">Fifth plan</div>
-                        <br></br>
-                        <div className="user-plans">Sixth plan</div>
-                        <br></br>
+                        <button className="user-plans">Second PLan</button>
+                        <button className="user-plans">Third plan</button>
+                        <button className="user-plans">Fourth plan</button>
+                        <button className="user-plans">Fifth plan</button>
+                        <button className="user-plans">Sixth plan</button>
                         
                     </div>
                 </div>
@@ -97,7 +95,8 @@ export default function ViewPlanner() {
                     <table className="table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Day 1</th>
                             <th scope="col">Day 2</th>
                             <th scope="col">Day 3</th>
                             </tr>
@@ -126,11 +125,11 @@ export default function ViewPlanner() {
 
                         <div className='plan-title'>Plan Created by:  user123</div>
 
-                        <div className='plan-nickname'>
+                        <div className='plan-likes'>
                             <div className="vote roundrect">
                                 <div className="increment up"></div>
                                 <div className="increment down"></div>
-                                <div className="count">Template for Likes : 105 Likes</div>
+                                <div className="count">This Travel Plan has been liked by  : 105 Travel Addicts</div>
                             </div>
                         </div>
 
