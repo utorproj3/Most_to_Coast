@@ -47,6 +47,7 @@
 }
 
 .cloud1 {
+    z-index: -1;
     position: absolute;
     display: flex;
     height: auto;

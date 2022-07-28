@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import Auth from '../utils/auth';
 
 export default function SignUpForm() {
-    const navigate = useNavigate();
     const [addUser, { error }] = useMutation(ADD_USER);
     const [signupState, setSignupState] = useState({ username: "", email: "", password: "" });
 
@@ -37,8 +36,13 @@ export default function SignUpForm() {
             email: '',
             password: '',
         });
+        
     };
-
+    
+    if (Auth.loggedIn()) {
+        return <Navigate to='/main' />;
+    }
+    
     return (
         <form action="/" method="post" onSubmit={handleSubmit}>
             <div className='top-row'>
@@ -87,7 +91,6 @@ export default function SignUpForm() {
             <button
                 type='submit'
                 className='button'
-                onClick={function(){navigate('/main')}}
             >
                 Get Started
             </button>

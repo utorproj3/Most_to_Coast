@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { LOGIN_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 
 export default function LoginForm() {
-    const navigate = useNavigate()
     const [loginUser, { error }] = useMutation(LOGIN_USER);
     const [loginState, setLoginState] = useState({ email: "", password: "" });
 
@@ -37,6 +36,10 @@ export default function LoginForm() {
             password: '',
         });
     };
+
+    if (Auth.loggedIn()) {
+        return <Navigate to='/main' />;
+    }
 
     return (
         <form action="/" method="post" onSubmit={handleSubmit}>
@@ -70,7 +73,6 @@ export default function LoginForm() {
             <button
                 type='submit'
                 className='button'
-                onClick={function(){navigate('/main')}}
             >
                 Log In
             </button>
