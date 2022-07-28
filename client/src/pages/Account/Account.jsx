@@ -6,10 +6,9 @@ import UserForm from "../../components/userForm/userForm";
 const About = () => {
   const loggedIn = Auth.loggedIn();
 
-<<<<<<< HEAD
-// todo MERGE CONFLICT
+  // todo MERGE CONFLICT
 
-// <<<<<<< HEAD
+  // <<<<<<< HEAD
   return (
     // TODO  FIX LOGIC FOR LOGIN/USERFORM
     // if NOT logged in, login/signup component, else (logged in), here's the Account Page
@@ -23,11 +22,6 @@ const About = () => {
     //     </div>
     //   )}
     // </>
-=======
-import UserForm from "../../components/userForm/userForm";
-const About = () => {
-  return (
->>>>>>> feature/connectUserForm
     <div>
       <UserForm />
     </div>
@@ -35,7 +29,6 @@ const About = () => {
 };
 
 export default About;
-<<<<<<< HEAD
 // =======
 // export default function Account() {
 //     return (
@@ -69,5 +62,3 @@ export default About;
 //     )
 // }
 // >>>>>>> 05c7c8b4dd318ea0ff2c5754550411d49ff46d99
-=======
->>>>>>> feature/connectUserForm
