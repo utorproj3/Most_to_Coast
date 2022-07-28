@@ -1,13 +1,13 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
-  mutation login($email: String!, $password: String!){
+  mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-        token
-        user{
-            _id
-            username
-        }
+      token
+      user {
+        _id
+        username
+      }
     }
   }
 `;
@@ -15,26 +15,28 @@ export const LOGIN_USER = gql`
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     createUser(username: $username, email: $email, password: $password) {
-        token
-        user{
-            _id
-            username
-        }
+      token
+      user {
+        _id
+        username
+      }
     }
   }
 `;
 
+// TODO use this to connect to ACCOUNT PAGE
+
 export const EDIT_USER = gql`
-  mutation editUser($input: UserInput){
-    editUser (input: $input) {
-        username
-        iconUrl
-        description
+  mutation editUser($input: UserInput) {
+    editUser(input: $input) {
+      username
+      iconUrl
+      description
     }
   }
-`
+`;
 
-export const CREATE_PLAN= gql`
+export const CREATE_PLAN = gql`
   mutation createPlan($input: PlanInput) {
     createPlan(input: $input) {
       _id
@@ -55,7 +57,6 @@ export const CREATE_PLAN= gql`
           picture
         }
       }
-
     }
   }
 `;
@@ -63,11 +64,11 @@ export const CREATE_PLAN= gql`
 export const CREATE_DAY = gql`
   mutation createDay($planId: ID!, $input: DayInput) {
     createDay(planId: $planId, input: $input) {
+      _id
+      dayNumber
+      activities {
         _id
-        dayNumber
-        activities {
-          _id
-        }
+      }
     }
   }
 `;
@@ -89,7 +90,7 @@ export const EDIT_ACTIVITY = gql`
 `;
 
 export const REMOVE_PLAN = gql`
-  mutation removePlan($id: ID!){
+  mutation removePlan($id: ID!) {
     removePlan(_id: $id) {
       _id
       username
