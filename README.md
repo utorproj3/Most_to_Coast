@@ -6,9 +6,6 @@ This app will reduce travel planning time. Creating a time schedule for the trip
 ## Heroku Deployment: 
 https://peaceful-journey-57215.herokuapp.com/main
 
-## Product Pitch:
-
-
 ## Description:
 * This program is designed to perform CRUD (Create, Read, Update, Delete) operations from a non-relational database on a front-end Travel Plan sharing Website.
 * Backend: The back-end of this project was completed using Node.js, express server, Mongo database, npm Mongoose and tested in a backend environment (Apollo Server).
